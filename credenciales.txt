@@ -1,0 +1,38 @@
+Para subir al sistema
++===================================+
+| Acceso Cpanel
++===================================+
+| Domain: iglesia.solucionesahora.com:2082
+| HasCgi: y
+| UserName: iglesia
+| PassWord: tarapoto888
++===================================+
+
+
+para ver el sistema antiguo
++===================================+
+| Acceso Cpanel           |
++===================================+
+| Domain: aminias.solucionesahora.com:2082
+| Ip: 162.253.35.106 (n)
+| HasCgi: y
+| UserName: aminias
+| PassWord: tarapoto888
++===================================+
+Acceso al sistema
+http://aminias.solucionesahora.com
+usuario: Superadmin
+clave: tarapoto888
+
+
+
+--- nuevo 14/07/2021
+
+
+| UserName: smi
+| PassWord: tarapoto888
+
+PRODUCCION
+https://smisystem.org/cpanel/
+user: smisystem
+pass: SVM(@XhvNS6G

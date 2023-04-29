@@ -1,0 +1,22 @@
+CREATE TABLE eventos.participantes (
+    participante_id serial,
+	participante_nombres varchar(100) NULL,
+	participante_apellidos varchar(100) NULL,
+	idtipodoc int NULL,
+	participante_nrodoc varchar(20) NULL,
+	participante_fecha_nacimiento date NULL,
+	idpais int NULL,
+	participante_ciudad_procedencia varchar(50) NULL,
+	participante_celular varchar(20) NULL,
+	participante_celular_emergencia varchar(20) NULL,
+	participante_correo varchar(100) NULL,
+	participante_apoderado varchar(200) NULL,
+	participante_iglesia varchar(100) NULL,
+	usuario_id int NULL,
+	participante_codigorq varchar(255) NULL,
+	participante_codigoqr_ruta varchar NULL,
+	CONSTRAINT pk_participantes PRIMARY KEY(participante_id),
+	CONSTRAINT fk_tipodoc_participantes FOREIGN KEY(idtipodoc) REFERENCES public.tipodoc(idtipodoc),
+	CONSTRAINT fk_pais_participantes FOREIGN KEY(idpais) REFERENCES public.pais(idpais),
+	CONSTRAINT fk_usuarios_participantes FOREIGN KEY(usuario_id) REFERENCES seguridad.usuarios(usuario_id)
+);

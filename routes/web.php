@@ -1,0 +1,145 @@
+<?php
+
+
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ModulosController;
+use App\Http\Controllers\PerfilesController;
+use App\Http\Controllers\PermisosController;
+use App\Http\Controllers\PrincipalController;
+use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\ParticipantesController;
+use App\Http\Controllers\ImportarController;
+use Illuminate\Support\Facades\Route;
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    // return "hola";
+    return view('login');
+});
+
+// LOGIN
+Route::post('login/loguearse', [LoginController::class, "loguearse"]);
+Route::get('login/logout', [LoginController::class, "logout"]);
+
+
+//PRINCIPAL
+Route::get('principal/index', [PrincipalController::class, "index"]);
+Route::post('principal/obtener_departamentos', [PrincipalController::class, "obtener_departamentos"]);
+Route::post('principal/obtener_provincias', [PrincipalController::class, "obtener_provincias"]);
+Route::post('principal/obtener_distritos', [PrincipalController::class, "obtener_distritos"]);
+Route::post('principal/obtener_divisiones', [PrincipalController::class, "obtener_divisiones"]);
+Route::post('principal/obtener_tipos_documento', [PrincipalController::class, "obtener_tipos_documento"]);
+Route::post('principal/obtener_tipos_acceso', [PrincipalController::class, "obtener_tipos_acceso"]);
+Route::post('principal/obtener_categorias_iglesia', [PrincipalController::class, "obtener_categorias_iglesia"]);
+Route::post('principal/obtener_tipos_construccion', [PrincipalController::class, "obtener_tipos_construccion"]);
+Route::post('principal/obtener_tipos_documentacion', [PrincipalController::class, "obtener_tipos_documentacion"]);
+Route::post('principal/obtener_tipos_inmueble', [PrincipalController::class, "obtener_tipos_inmueble"]);
+Route::post('principal/obtener_condicion_inmueble', [PrincipalController::class, "obtener_condicion_inmueble"]);
+Route::post('principal/cambiar_idioma', [PrincipalController::class, "cambiar_idioma"]);
+Route::post('principal/obtener_motivos_baja', [PrincipalController::class, "obtener_motivos_baja"]);
+Route::post('principal/obtener_condicion_eclesiastica', [PrincipalController::class, "obtener_condicion_eclesiastica"]);
+Route::post('principal/obtener_condicion_eclesiastica_all', [PrincipalController::class, "obtener_condicion_eclesiastica_all"]);
+Route::post('principal/obtener_religiones', [PrincipalController::class, "obtener_religiones"]);
+Route::post('principal/obtener_tipos_cargo', [PrincipalController::class, "obtener_tipos_cargo"]);
+Route::post('principal/obtener_cargos', [PrincipalController::class, "obtener_cargos"]);
+Route::post('principal/obtener_instituciones', [PrincipalController::class, "obtener_instituciones"]);
+Route::post('principal/obtener_parentesco', [PrincipalController::class, "obtener_parentesco"]);
+
+Route::post('principal/consultar_modulo', [PrincipalController::class, "consultar_modulo"]);
+Route::post('principal/EliminarProceso', [PrincipalController::class, "EliminarProceso"]);
+
+
+/*************
+ * MODULO SEGURIDAD *
+ *************/
+// PERFILES
+Route::get('perfiles/index', [PerfilesController::class, "index"]);
+Route::post('perfiles/buscar_datos', [PerfilesController::class, "buscar_datos"]);
+Route::post('perfiles/guardar_perfiles', [PerfilesController::class, "guardar_perfiles"]);
+Route::post('perfiles/get_perfiles', [PerfilesController::class, "get_perfiles"]);
+Route::post('perfiles/eliminar_perfiles', [PerfilesController::class, "eliminar_perfiles"]);
+Route::post('perfiles/obtener_perfiles', [PerfilesController::class, "obtener_perfiles"]);
+Route::post('perfiles/obtener_traducciones', [PerfilesController::class, "obtener_traducciones"]);
+
+// MODULOS
+Route::get('modulos/index', [ModulosController::class, "index"]);
+Route::post('modulos/buscar_datos', [ModulosController::class, "buscar_datos"]);
+Route::post('modulos/guardar_modulos', [ModulosController::class, "guardar_modulos"]);
+Route::post('modulos/guardar_padres', [ModulosController::class, "guardar_padres"]);
+Route::post('modulos/get_modulos', [ModulosController::class, "get_modulos"]);
+Route::post('modulos/eliminar_modulos', [ModulosController::class, "eliminar_modulos"]);
+Route::post('modulos/obtener_padres', [ModulosController::class, "obtener_padres"]);
+Route::post('modulos/obtener_modulos', [ModulosController::class, "obtener_modulos"]);
+Route::post('modulos/obtener_traducciones', [ModulosController::class, "obtener_traducciones"]);
+Route::post('modulos/select_init', [ModulosController::class, "select_init"]);
+
+//USUARIOS
+Route::get('usuarios/index', [UsuariosController::class, "index"]);
+Route::post('usuarios/buscar_datos', [UsuariosController::class, "buscar_datos"]);
+Route::post('usuarios/guardar_usuarios', [UsuariosController::class, "guardar_usuarios"]);
+Route::post('usuarios/get_usuarios', [UsuariosController::class, "get_usuarios"]);
+Route::post('usuarios/eliminar_usuarios', [UsuariosController::class, "eliminar_usuarios"]);
+Route::get('usuarios/cambiar_password', [UsuariosController::class, "cambiar_password"]);
+Route::post('usuarios/select_init', [UsuariosController::class, "select_init"]);
+
+// PERMISOS
+
+Route::get('permisos/index', [PermisosController::class, "index"]);
+Route::post('permisos/guardar_permisos', [PermisosController::class, "guardar_permisos"]);
+Route::post('permisos/get', [PermisosController::class, "get"]);
+
+
+/*************
+ * MODULO MANTENIMIENTOS *
+ *************/
+
+
+// IGLESIAS
+Route::get('participantes/index', [ParticipantesController::class, "index"]);
+Route::post('participantes/buscar_datos', [ParticipantesController::class, "buscar_datos"]);
+Route::post('participantes/guardar_participantes', [ParticipantesController::class, "guardar_participantes"]);
+Route::post('participantes/get_participantes', [ParticipantesController::class, "get_participantes"]);
+Route::post('participantes/eliminar_participantes', [ParticipantesController::class, "eliminar_participantes"]);
+Route::post('participantes/obtener_participantes', [ParticipantesController::class, "obtener_participantes"]);
+Route::post('participantes/select_init', [ParticipantesController::class, "select_init"]);
+Route::post('participantes/enviar_qr', [ParticipantesController::class, "enviar_qr"]);
+// Route::get('participantes/generar_pdf_qr', [ParticipantesController::class, "generar_pdf_qr"]);
+
+
+// IMPORTAR
+
+Route::get('importar/importar', [ImportarController::class, "importar"]);
+Route::get('importar/datos', [ImportarController::class, "datos"]);
+Route::post('importar/guardar_importar', [ImportarController::class, "guardar_importar"]);
+Route::post('importar/importar_datos', [ImportarController::class, "importar_datos"]);
+Route::post('importar/procesos', [ImportarController::class, "procesos"]);
+
+
+
+
+ // API APP
+
+ Route::get('api/login', [ApiController::class, "login"]);
+ Route::get('api/marcar_asistencia', [ApiController::class, "marcar_asistencia"]);
+
+ Route::get('api/guardar_votos', [ApiController::class, "guardar_votos"]);
+ Route::get('api/guardar_comentarios', [ApiController::class, "guardar_comentarios"]);
+ Route::get('api/obtener_paises', [ApiController::class, "obtener_paises"]);
+ Route::get('api/obtener_tipos_documento', [ApiController::class, "obtener_tipos_documento"]);
+ Route::get('api/obtener_foros', [ApiController::class, "obtener_foros"]);
+ Route::get('api/obtener_comentarios', [ApiController::class, "obtener_comentarios"]);
+ Route::get('api/obtener_votacion_activa', [ApiController::class, "obtener_votacion_activa"]);
+ Route::get('api/obtener_url', [ApiController::class, "obtener_url"]);

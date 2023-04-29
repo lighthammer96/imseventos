@@ -1,0 +1,16 @@
+-- crear migracion
+php artisan make:migration nombre_migracion
+
+-- ejecutar migraciones
+php artisan migrate
+
+-- retornar migracion
+php artisan migrate:rollback
+
+-- ejecuta el metodo down de todas las migraciones independientemente si estan o no pendientes de ejecucion, luego vuelve a ejecutar el metodo up de nuevo (no se recomienda usar en produccion, se perderia los datos insertados)
+php artisan migrate:fresh
+
+referencia: crear las migraciones usando sentencias sql
+https://es.stackoverflow.com/questions/164825/creaci%C3%B3n-de-vistas-en-migraciones-laravel
+
+
