@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById("descargar_pdf").setAttribute("download", response.participante_codigoqr + ".pdf");
             document.getElementById("descargar_pdf").setAttribute("href", BaseUrl + "/PDF/" + response.participante_codigoqr + ".pdf");
-
+            document.getElementById("evento-texto").innerText = response.evento_descripcion;
         })
     }
 
