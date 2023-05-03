@@ -32,6 +32,7 @@ class ParticipantesController extends Controller
     }
 
     public function index() {
+
         $view = "participantes.index";
         $data["title"] = "Administración de Participantes";
         $data["subtitle"] = "";
@@ -81,25 +82,32 @@ class ParticipantesController extends Controller
 
             // configuracion para cpanel
 
-            $mail->Host = 'localhost';
-            $mail->SMTPAuth = false;
-            $mail->Username = "imssystem@smisystem.org";
-            $mail->Password = "imssystem@1235";
-            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // TLS:
+            if($_ENV["DB_DATABASE"] == "imseventos") {
+                // configuracion para tu maquina local
+                $mail->Host = 'mail.smisystem.org';
+                $mail->SMTPAuth = true;
+                $mail->Username = "imssystem@smisystem.org";
+                $mail->Password = "imssystem@1235";
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // TLS:
 
-            $mail->Port       = 25; // si no quiere con el puerto 25 poner el puerto 587, al parecer en produccion va el puerto 587 y en desarollo el puerto 25,
-            //o sino la mejor opcion es con SMTPSecure='ssl' y el puerto 665
+                $mail->Port       = 465; // si no quiere con el puerto 25 poner el puerto 587, al parecer en produccion va el puerto 587 y en desarollo el puerto 25,
+                // o sino la mejor opcion es con SMTPSecure='ssl' y el puerto 665
+
+            } else {
+                $mail->Host = 'localhost';
+                $mail->SMTPAuth = false;
+                $mail->Username = "imssystem@smisystem.org";
+                $mail->Password = "imssystem@1235";
+                // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // TLS:
+
+                $mail->Port       = 25; // si no quiere con el puerto 25 poner el puerto 587, al parecer en produccion va el puerto 587 y en desarollo el puerto 25,
+                //o sino la mejor opcion es con SMTPSecure='ssl' y el puerto 665
+            }
 
 
-            // configuracion para tu maquina local
-            // $mail->Host = 'mail.smisystem.org';
-            // $mail->SMTPAuth = true;
-            // $mail->Username = "imssystem@smisystem.org";
-            // $mail->Password = "imssystem@1235";
-            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // TLS:
 
-            // $mail->Port       = 465; // si no quiere con el puerto 25 poner el puerto 587, al parecer en produccion va el puerto 587 y en desarollo el puerto 25,
-            //o sino la mejor opcion es con SMTPSecure='ssl' y el puerto 665
+
+
 
             $mail->setFrom("imssystem@smisystem.org", utf8_decode("Iglesia Adventista del Séptimo Día Movimiento de Reforma"));
             $mail->addAddress($datos->participante_correo, $datos->participante_apellidos.", ".$datos->participante_nombres);
@@ -143,26 +151,30 @@ class ParticipantesController extends Controller
             $_POST["participante_fecha_nacimiento"] = (isset($_REQUEST["participante_fecha_nacimiento"])) ? $this->FormatoFecha($_REQUEST["participante_fecha_nacimiento"], "server") : "";
             $_POST["usuario_id"] = session("usuario_id");
 
-            $sql_validacion = "SELECT * FROM eventos.participantes WHERE idtipodoc={$data["idtipodoc"]} AND participante_nrodoc='{$data["participante_nrodoc"]}' AND idpais={$data["idpais"]}";
-            // die($sql_validacion);
-            $validacion = DB::select($sql_validacion);
 
-            if($request->input("participante_id") == '' && count($validacion) > 0) {
-                $response["validacion"] = "EP"; //EXISTE DOCUMENTO
-                throw new Exception("¡Ya existe un participante registrado con estos datos!");
+            if(!empty($data["idtipodoc"]) && $data["idtipodoc"] != "0" && !empty($data["participante_nrodoc"]) && !empty($data["idpais"])) {
+                $sql_validacion = "SELECT * FROM eventos.participantes WHERE idtipodoc={$data["idtipodoc"]} AND participante_nrodoc='{$data["participante_nrodoc"]}' AND idpais={$data["idpais"]}";
+                // die($sql_validacion);
+                $validacion = DB::select($sql_validacion);
+
+                if($request->input("participante_id") == '' && count($validacion) > 0) {
+                    $response["validacion"] = "EP"; //EXISTE DOCUMENTO
+                    throw new Exception("¡Ya existe un participante registrado con estos datos!");
+                }
+
             }
 
 
             if ($request->input("participante_id") == '') {
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
                 $_POST["participante_id"] = $result["id"];
-                $_POST["evento_id"] = 1;
+                // $_POST["evento_id"] = 1;
                 $this->base_model->insertar($this->preparar_datos("eventos.detalle_eventos", $_POST));
             }else{
                 $result = $this->base_model->modificar($this->preparar_datos("eventos.participantes", $_POST));
             }
 
-            $string_qr = "1" . $result["id"]. str_replace("-","", $_POST["participante_fecha_nacimiento"]);
+            $string_qr = $data["evento_id"]."-" . $result["id"]."-". mt_rand(1000, 9999);
 
             $data_update = array();
             $data_update["participante_id"] = $result["id"];
@@ -232,6 +244,8 @@ class ParticipantesController extends Controller
     public function get_participantes(Request $request) {
 
         $sql = "SELECT * FROM eventos.participantes AS p
+        INNER JOIN eventos.detalle_eventos AS de ON(p.participante_id=de.participante_id)
+        INNER JOIN eventos.eventos AS e ON(e.evento_id=de.evento_id)
 
         WHERE p.participante_id=".$request->input("id");
         $one = DB::select($sql);

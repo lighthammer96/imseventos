@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\EventosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ModulosController;
 use App\Http\Controllers\PerfilesController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ParticipantesController;
 use App\Http\Controllers\ImportarController;
+use App\Http\Controllers\ProgramasController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -103,11 +105,11 @@ Route::post('permisos/get', [PermisosController::class, "get"]);
 
 
 /*************
- * MODULO MANTENIMIENTOS *
+ * MODULO EVENTOS *
  *************/
 
 
-// IGLESIAS
+// PARTICIPANTES
 Route::get('participantes/index', [ParticipantesController::class, "index"]);
 Route::post('participantes/buscar_datos', [ParticipantesController::class, "buscar_datos"]);
 Route::post('participantes/guardar_participantes', [ParticipantesController::class, "guardar_participantes"]);
@@ -117,6 +119,24 @@ Route::post('participantes/obtener_participantes', [ParticipantesController::cla
 Route::post('participantes/select_init', [ParticipantesController::class, "select_init"]);
 Route::post('participantes/enviar_qr', [ParticipantesController::class, "enviar_qr"]);
 // Route::get('participantes/generar_pdf_qr', [ParticipantesController::class, "generar_pdf_qr"]);
+
+// EVENTOS
+Route::get('eventos/index', [EventosController::class, "index"]);
+Route::post('eventos/buscar_datos', [EventosController::class, "buscar_datos"]);
+Route::post('eventos/guardar_eventos', [EventosController::class, "guardar_eventos"]);
+Route::post('eventos/get_eventos', [EventosController::class, "get_eventos"]);
+Route::post('eventos/eliminar_eventos', [EventosController::class, "eliminar_eventos"]);
+Route::post('eventos/obtener_eventos', [EventosController::class, "obtener_eventos"]);
+
+
+// PROGRAMAS
+Route::get('programas/index', [ProgramasController::class, "index"]);
+Route::post('programas/buscar_datos', [ProgramasController::class, "buscar_datos"]);
+Route::post('programas/guardar_programas', [ProgramasController::class, "guardar_programas"]);
+Route::post('programas/get_programas', [ProgramasController::class, "get_programas"]);
+Route::post('programas/eliminar_programas', [ProgramasController::class, "eliminar_programas"]);
+Route::post('programas/obtener_programas', [ProgramasController::class, "obtener_programas"]);
+Route::post('programas/select_init', [ProgramasController::class, "select_init"]);
 
 
 // IMPORTAR

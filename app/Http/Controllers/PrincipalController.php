@@ -185,7 +185,12 @@ class PrincipalController extends Controller
     	echo "OK";
     }
 
-   
+    public function obtener_tipos_programa() {
+        $result = $this->principal_model->obtener_tipos_programa();
+        echo json_encode($result);
+    }
+
+
 
 
 }
