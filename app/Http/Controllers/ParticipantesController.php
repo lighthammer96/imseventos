@@ -407,7 +407,7 @@ class ParticipantesController extends Controller
 
             DB::statement("UPDATE eventos.detalle_eventos SET registro_id={$result["id"]}, de_codigoqr='{$value->participante_codigoqr}', de_codigoqr_ruta='{$value->participante_codigoqr_ruta}' WHERE participante_id={$value->participante_id}");
 
-            echo $value->participante_nombres." ".$value->participante_apelldios." registro_id => ".$result["id"]."<br>\n";
+            echo $value->participante_nombres." ".$value->participante_apellidos." registro_id => ".$result["id"]."<br>\n";
         }
     }
 }
