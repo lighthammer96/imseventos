@@ -405,7 +405,7 @@ class ParticipantesController extends Controller
             $data_update["registro_id_ultimo"] = $result["id"];
             $this->base_model->modificar($this->preparar_datos("eventos.participantes", $data_update));
 
-            DB::statement("UPDATE eventos.detalles_eventos SET registro_id={$result["id"]}, de_codigoqr={$value->participante_codigoqr}, de_codigoqr_ruta={$value->participante_codigoqr_ruta} WHERE participante_id={$value->participante_id}");
+            DB::statement("UPDATE eventos.detalles_eventos SET registro_id={$result["id"]}, de_codigoqr='{$value->participante_codigoqr}', de_codigoqr_ruta='{$value->participante_codigoqr_ruta}' WHERE participante_id={$value->participante_id}");
 
             echo $value->participante_nombres." ".$value->participante_apelldios." registro_id => ".$result["id"]."<br>\n";
         }
