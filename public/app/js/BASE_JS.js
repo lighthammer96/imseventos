@@ -343,7 +343,10 @@ class BASE_JS {
             //console.log(self.formularioID);
             var elementos = document.getElementById(self.formularioID).getElementsByClassName("entrada");
             //console.log(elementos);
-            self.abrirModal();
+
+            if(!$("#" + self.modalID).is(':visible')) {
+                self.abrirModal();
+            }
             self.disabled = false;
             response = response[0];
             if (response != null) {

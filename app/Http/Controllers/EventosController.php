@@ -132,5 +132,15 @@ class EventosController extends Controller
         echo json_encode($result);
     }
 
+    public function obtener_todos_eventos() {
+        $result = $this->eventos_model->obtener_todos_eventos();
+        echo json_encode($result);
+    }
+
+    public function obtener_eventos_segun_participante_registro(Request $request) {
+        $data = $request->all();
+        $result = $this->eventos_model->obtener_eventos_segun_participante_registro($data["participante_id"], $data["registro_id"]);
+        echo json_encode($result);
+    }
 
 }

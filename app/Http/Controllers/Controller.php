@@ -145,29 +145,32 @@ class Controller extends BaseController
             }
         }
 
-        $primer_key    = array_keys($datos)[0]; // borrar, es momentaneo
 
 
         // echo $table."\n";
         // echo gettype(array_values($datos)[1])."\n";
         //PONEMOS EN EL PRIMER ELEMENTO A LA CLAVE SE REPITE EN RESTO DE REGISTRO EN EL CASO DE SER UN DETALLE
         // print_r($datos); exit;
-
+         // cuando es detalle
         if ($tipoTabla == "D") {
-            $cantElementos = (is_array(array_values($datos)[1])) ? count(array_values($datos)[1]) : 0;
-            $primer_key    = array_keys($datos)[0];
-            $primer_value  = array_values($datos)[0];
-            for ($i = 0; $i < $cantElementos; $i++) {
-                $parametros["datos"][$i][$primer_key] = $primer_value;
+            $cantElementos = 0;
+
+            foreach ($datos as $key => $value) {
+                if(gettype($value) == "array") {
+                    $cantElementos = count($value);
+                    break;
+                }
             }
-        }
+            foreach ($datos as $key => $value) {
 
-        // cuando es detalle
-        if ($tipoTabla == "D") {
+                if(gettype($value) != "array") {
 
-            for ($i = 0; $i < $cantElementos; $i++) {
-                foreach ($datos as $key => $value) {
-                    if ($primer_key != $key) {
+                    for ($i = 0; $i < $cantElementos; $i++) {
+                        $parametros["datos"][$i][$key] = $value;
+                    }
+                } else {
+                    for ($i = 0; $i < $cantElementos; $i++) {
+
                         // para que inserte solo los campos que tiene dicha tabla
                         if (in_array($key, $fields["campos"])) {
                             // echo $primer_key." ".$key."\n";
@@ -179,11 +182,16 @@ class Controller extends BaseController
                             }
 
                         }
+
+
+
                     }
                 }
-
             }
-        } elseif ($tipoTabla == "N") {
+        }
+
+        // cuando es tabla normal y no es detalle
+        if ($tipoTabla == "N") {
 
             foreach ($datos as $key => $value) {
                 if (in_array($key, $fields["campos"])) {
@@ -195,11 +203,9 @@ class Controller extends BaseController
 
                         $parametros["datos"][0][$key] = $value;
                         // $parametros["datos"][0][$key] = NULL;
-                    // } elseif (!in_array($key, $fields["primary_key"])) {
-                    } elseif ($key != $primer_key) { // borrar, es momentaneo
-
-                        $parametros["datos"][0][$key] = NULL;
-                        //$parametros["datos"][0][$key] = $value;
+                    //
+                    } elseif (!in_array($key, $fields["primary_key"])) {
+                        $parametros["datos"][0][$key] = NULL; // esto es para cuando modificas un campos que cuando lo registraste tenia informacion y ahora que lo modificas quieres que este vacio
                     }
                 }
 

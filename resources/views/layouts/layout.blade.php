@@ -91,6 +91,9 @@
         textarea {
             resize: none;
         }
+        table {
+            font-size: 13px;
+        }
     </style>
 </head>
 

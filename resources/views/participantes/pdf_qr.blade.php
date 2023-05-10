@@ -115,9 +115,9 @@
         <div class="clear"></div>
         <div class="row" style="margin-top: 20px;">
             <div class="col" style="width: 100%; text-align: center;">
-                <img width="250" height="" src="<?php echo URL::asset('QR/'.$participante[0]->participante_codigoqr_ruta); ?>" alt="">
+                <img width="250" height="" src="<?php echo URL::asset('QR/'.$participante[0]->de_codigoqr_ruta); ?>" alt="">
                 <br><br>
-                <h3>Código: {{ $participante[0]->participante_codigoqr }}</h3>
+                <h3>Código: {{ $participante[0]->de_codigoqr }}</h3>
             </div>
 
         </div>

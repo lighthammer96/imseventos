@@ -118,6 +118,9 @@ Route::post('participantes/eliminar_participantes', [ParticipantesController::cl
 Route::post('participantes/obtener_participantes', [ParticipantesController::class, "obtener_participantes"]);
 Route::post('participantes/select_init', [ParticipantesController::class, "select_init"]);
 Route::post('participantes/enviar_qr', [ParticipantesController::class, "enviar_qr"]);
+Route::post('participantes/validar_participante_segun_nrodoc', [ParticipantesController::class, "validar_participante_segun_nrodoc"]);
+Route::post('participantes/obtener_participante_segun_evento', [ParticipantesController::class, "obtener_participante_segun_evento"]);
+Route::get('participantes/procesar', [ParticipantesController::class, "procesar"]);
 // Route::get('participantes/generar_pdf_qr', [ParticipantesController::class, "generar_pdf_qr"]);
 
 // EVENTOS
@@ -127,6 +130,8 @@ Route::post('eventos/guardar_eventos', [EventosController::class, "guardar_event
 Route::post('eventos/get_eventos', [EventosController::class, "get_eventos"]);
 Route::post('eventos/eliminar_eventos', [EventosController::class, "eliminar_eventos"]);
 Route::post('eventos/obtener_eventos', [EventosController::class, "obtener_eventos"]);
+Route::post('eventos/obtener_eventos_segun_participante_registro', [EventosController::class, "obtener_eventos_segun_participante_registro"]);
+Route::post('eventos/obtener_todos_eventos', [EventosController::class, "obtener_todos_eventos"]);
 
 
 // PROGRAMAS

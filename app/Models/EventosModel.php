@@ -45,5 +45,20 @@ class EventosModel extends Model
         return $result;
     }
 
+    public function obtener_todos_eventos() {
+        $sql = "SELECT evento_id AS id, evento_descripcion AS descripcion FROM eventos.eventos";
+        $result = DB::select($sql);
+        return $result;
+    }
+
+    public function obtener_eventos_segun_participante_registro($participante_id, $registro_id) {
+        $sql = "SELECT p.*, e.*, de.*, r.*, to_char(e.evento_fecha_inicio, 'DD/MM/YYYY') AS evento_fecha_inicio, to_char(e.evento_fecha_fin, 'DD/MM/YYYY') AS evento_fecha_fin FROM eventos.participantes AS p
+        INNER JOIN eventos.detalle_eventos AS de ON(p.participante_id=de.participante_id)
+        INNER JOIN eventos.eventos AS e ON(e.evento_id=de.evento_id)
+        INNER JOIN eventos.registros AS r ON(p.participante_id=r.participante_id)
+        WHERE p.participante_id={$participante_id} AND r.registro_id={$registro_id}";
+        $result = DB::select($sql);
+        return $result;
+    }
 
 }

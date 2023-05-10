@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class AgregarColumnasTablaParticipantes extends Migration
@@ -25,7 +26,7 @@ class AgregarColumnasTablaParticipantes extends Migration
             ALTER TABLE eventos.participantes ADD participante_fecha_retorno date NULL;
             ALTER TABLE eventos.participantes ADD participante_hora_retorno time NULL;
             ALTER TABLE eventos.participantes ADD participante_destino_llegada varchar(50) NULL;
-        ")
+        ");
     }
 
     /**
