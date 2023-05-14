@@ -286,24 +286,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
-    document.getElementById("cancelar-participante").addEventListener("click", function (event) {
+    $(document).on("click", "#cancelar-participante", function (event) {
         event.preventDefault();
         participantes.CerrarModal();
-    })
-    document.getElementById("cerrar-evento").addEventListener("click", function (event) {
+    });
+
+    $(document).on("click", "#cerrar-evento", function (event) {
         event.preventDefault();
         $("#modal-eventos").modal("hide");
-    })
+    });
 
-    document.getElementById("cancelar-ver-evento").addEventListener("click", function (event) {
+
+    $(document).on("click", "#cancelar-ver-evento", function (event) {
         event.preventDefault();
         $("#modal-ver-evento").modal("hide");
-    })
+    });
 
-    document.getElementById("cancelar-eventos-participante").addEventListener("click", function (event) {
+    $(document).on("click", "#cancelar-eventos-participante", function (event) {
         event.preventDefault();
         $("#modal-eventos-participante").modal("hide");
-    })
+    });
+
+
+    // document.getElementById("cancelar-participante").addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     participantes.CerrarModal();
+    // })
+    // document.getElementById("cerrar-evento").addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     $("#modal-eventos").modal("hide");
+    // })
+
+    // document.getElementById("cancelar-ver-evento").addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     $("#modal-ver-evento").modal("hide");
+    // })
+
+    // document.getElementById("cancelar-eventos-participante").addEventListener("click", function (event) {
+    //     event.preventDefault();
+    //     $("#modal-eventos-participante").modal("hide");
+    // })
 
 
 
@@ -337,12 +359,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // });
-
-
-    document.getElementById("enviar_qr").addEventListener("click", function (e) {
-        var participante_id = this.getAttribute("participante_id");
-        var evento_id = this.getAttribute("evento_id");
-        var registro_id = this.getAttribute("registro_id");
+    $(document).on("click", "#enviar_qr", function (event) {
+        var participante_id = $(this).attr("participante_id");
+        var evento_id = $(this).attr("evento_id");
+        var registro_id = $(this).attr("registro_id");
         var promise = participantes.ajax({
             url: '/enviar_qr',
             datos: { participante_id: participante_id, evento_id: evento_id, registro_id: registro_id }
@@ -360,6 +380,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // console.log(response);
         })
     })
+
+    // document.getElementById("enviar_qr").addEventListener("click", function (e) {
+
+    // })
 
     // function calcular_edad(dateString) {
     //     let hoy = new Date()
@@ -394,8 +418,9 @@ document.addEventListener("DOMContentLoaded", function () {
     //     var participante_fecha_nacimiento = $(this).val();
     //     setear_edad(participante_fecha_nacimiento);
     // });
-    document.getElementById("time-registro_hora_llegada").addEventListener("click", function(e) {
-        e.preventDefault();
+
+    $(document).on("click", "#time-registro_hora_llegada", function (event) {
+        event.preventDefault();
 
         if($("input[name=registro_hora_llegada]").hasClass("focus-time")) {
 
@@ -406,11 +431,10 @@ document.addEventListener("DOMContentLoaded", function () {
             $("input[name=registro_hora_llegada]").focus();
             $("input[name=registro_hora_llegada]").addClass("focus-time");
         }
+    })
 
-    });
-
-    document.getElementById("time-registro_hora_retorno").addEventListener("click", function(e) {
-        e.preventDefault();
+    $(document).on("click", "#time-registro_hora_retorno", function (event) {
+        event.preventDefault();
 
         if($("input[name=registro_hora_retorno]").hasClass("focus-time")) {
 
@@ -422,46 +446,66 @@ document.addEventListener("DOMContentLoaded", function () {
             $("input[name=registro_hora_retorno]").addClass("focus-time");
         }
 
-    });
+    })
+
+
+    function validar_duplicacidad() {
+        var idpais = participantes.buscarEnFormulario("idpais").value;
+        var idtipodoc = participantes.buscarEnFormulario("idtipodoc").value;
+        var participante_nrodoc = participantes.buscarEnFormulario("participante_nrodoc").value;
+        var required = true;
+        required = required && participantes.required("idpais");
+        required = required && participantes.required("idtipodoc");
+        if(required) {
+            var promise = participantes.ajax({
+                url: '/validar_participante_segun_nrodoc',
+                datos: { idpais: idpais, idtipodoc: idtipodoc, participante_nrodoc: participante_nrodoc }
+            }).then(function (response) {
+                if(response.participante.length > 0) {
+
+                    var promise = participantes.get(response.participante[0].participante_id);
+
+                    promise.then(function() {
+                        if(response.eventos.length > 0) {
+                            BASE_JS.sweet({
+                                text: '¡AUN TIENE EVENTOS ASIGNADOS ACTIVOS!'
+                            });
+                            // document.getElementById("guardar-participante").disabled = true;
+                            $("#guardar-participante").prop("disabled", true);
+                            // console.log(document.getElementById("guardar-participante").disabled)
+                        } else {
+                            // document.getElementById("guardar-participante").disabled = false;
+                            $("#guardar-participante").prop("disabled", false);
+                        }
+                    })
+                }
+
+
+
+
+            //    console.log(response);
+
+            })
+        }
+    }
 
     document.getElementsByName("participante_nrodoc")[0].addEventListener("keydown", function(e) {
-        // e.preventDefault();
+        e.preventDefault();
         if(e.key == "Enter") {
-            var idpais = participantes.buscarEnFormulario("idpais").value;
-            var idtipodoc = participantes.buscarEnFormulario("idtipodoc").value;
-            var participante_nrodoc = participantes.buscarEnFormulario("participante_nrodoc").value;
-            var required = true;
-            required = required && participantes.required("idpais");
-            required = required && participantes.required("idtipodoc");
-            if(required) {
-                var promise = participantes.ajax({
-                    url: '/validar_participante_segun_nrodoc',
-                    datos: { idpais: idpais, idtipodoc: idtipodoc, participante_nrodoc: participante_nrodoc }
-                }).then(function (response) {
-                    if(response.participante.length > 0) {
-
-                        var promise = participantes.get(response.participante[0].participante_id);
-                    }
-
-                    if(response.eventos.length > 0) {
-                        BASE_JS.sweet({
-                            text: '¡AUN TIENE EVENTOS ASIGNADOS ACTIVOS!'
-                        });
-                        document.getElementById("guardar-participante").disabled = true;
-                    } else {
-                        document.getElementById("guardar-participante").disabled = false;
-                    }
-
-                //    console.log(response);
-
-                })
-            }
+            validar_duplicacidad();
         }
 
     })
 
-    document.getElementById("ver-eventos").addEventListener("click", function(e) {
+    document.getElementsByName("participante_nrodoc")[0].addEventListener("change", function(e) {
         e.preventDefault();
+        validar_duplicacidad();
+
+    })
+
+    $(document).on("click", "#ver-eventos", function (e) {
+        e.preventDefault();
+
         var datos = participantes.datatable.row('.selected').data();
         if (typeof datos == "undefined") {
             BASE_JS.sweet({
@@ -493,6 +537,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         $("#modal-eventos-participante").modal("show");
     })
+
+
 
     $(document).on("click", ".ver-evento", function (e) {
         e.preventDefault();

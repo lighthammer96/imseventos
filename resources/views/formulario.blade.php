@@ -217,7 +217,7 @@
 
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Aerolinea</label>
 
@@ -228,8 +228,8 @@
 
                             <input type="text" class="form-control input-sm entrada" name="registro_nrovuelo"  placeholder=""/>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div> --}}
+                    {{-- <div class="row">
                         <div class="col-md-3">
                             <label class="control-label">Fecha de Llegada</label>
 
@@ -272,8 +272,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row" >
+                    </div> --}}
+                    {{-- <div class="row" >
 
                         <div class="col-md-7" style="padding-right: 0; margin-top: 27px;">
                             <label class="control-label">Destino final de llegada para recepción en aeropuerto</label>
@@ -291,7 +291,7 @@
 
 
 
-                    </div>
+                    </div> --}}
                     <br>
                     <div class="pull-right">
                         {{-- <button type="button" class="btn btn-default btn-sm" id="cancelar-participante"><img style="width: 20px; height: 20px;" src="{{ URL::asset('images/iconos/cancelar.png') }}" ><br>[Esc] [{{ traducir('traductor.cancelar') }}]</button> --}}

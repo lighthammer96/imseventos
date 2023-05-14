@@ -49,7 +49,7 @@ class ParticipantesController extends Controller
         $botones[3] = '<button disabled="disabled" style="margin-right: 5px;" class="btn btn-default btn-sm" id="ver-eventos"><img style="width: 19px; height: 20px;" src="'.URL::asset('images/iconos/lupa.png').'"><br>Ver Eventos</button>';
         $data["botones"] = $botones;
 
-        $data["scripts"] = $this->cargar_js(["participantes.js"]);
+        $data["scripts"] = $this->cargar_js(["participantes.js?version=140520231303"]);
         return parent::init($view, $data);
 
 
