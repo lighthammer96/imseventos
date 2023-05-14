@@ -153,6 +153,10 @@ class ParticipantesController extends Controller
             DB::beginTransaction();
             $data = $request->all();
 
+            if(isset($data["usuario_user"])) {
+                session(['usuario_user' => $data["usuario_user"]]);
+            }
+
 
             // print_r($data); exit;
             $_POST = $this->toUpper($_POST, ["registro_correo"]);

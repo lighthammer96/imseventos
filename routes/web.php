@@ -36,6 +36,10 @@ Route::get('/', function () {
 Route::post('login/loguearse', [LoginController::class, "loguearse"]);
 Route::get('login/logout', [LoginController::class, "logout"]);
 
+Route::get('/formulario', function () {
+    // return "hola";
+    return view('formulario');
+});
 
 //PRINCIPAL
 Route::get('principal/index', [PrincipalController::class, "index"]);
