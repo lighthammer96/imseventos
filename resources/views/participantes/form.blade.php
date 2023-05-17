@@ -38,91 +38,7 @@
     </div>
 </div>
 
-<div id="modal-eventos-participante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="" class="control-label">Eventos Asignados al Participante: <span id="participante"></span></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped table-bordered display compact" id="detalle-eventos">
-                            <thead>
-                                <tr>
-                                    <th style="width: 100px;">Evento</th>
-                                    <th style="width: 50px;">Fecha Inicio</th>
-                                    <th style="width: 50px;">Fecha Fin</th>
-
-
-                                    <th style="width: 10px;"><center>Ver</center></th>
-                                </tr>
-
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-sm" id="cancelar-eventos-participante"><img style="width: 20px; height: 20px;" src="{{ URL::asset('images/iconos/cancelar.png') }}" ><br>[Esc] [Cerrar]</button>
-
-
-            </div>
-
-
-
-        </div>
-    </div>
-</div>
-
-<div id="modal-ver-evento" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="" class="control-label">Evento: <span id="evento"></span></label>
-                    </div>
-                </div>
-                <div class="row qr" style="margin-top: 20px;">
-                    <div class="col-md-4 col-md-offset-2" style="">
-                        {{-- <label class="control-label" style="text-align: center;">QR</label> --}}
-                        <img title="Código QR" style="cursor: pointer;height: 165px !important;" src="{{ URL::asset('images/camara.png') }}" class="thumb-lg img-thumbnail usuario_foto" alt="profile-image" id="cargar_qr">
-                    </div>
-                    <div class="col-md-4" style="">
-                        <center>
-
-                            <div style="margin-top: 20px;">
-                                <a id="descargar_pdf" class="btn btn-default"><img style="width: 30px; height: 30px;" src="{{ URL::asset('images/iconos/pdf.png') }}" > &nbsp;&nbsp;&nbsp; Descargar PDF</a>
-                            </div>
-
-                            <div style="margin-top: 20px;">
-                                <button type="button" id="enviar_qr" class="btn btn-default"><img style="width: 30px; height: 30px;" src="{{ URL::asset('images/iconos/importante.png') }}" > &nbsp;&nbsp;&nbsp; Enviar QR</button>
-                            </div>
-                        </center>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-sm" id="cancelar-ver-evento"><img style="width: 20px; height: 20px;" src="{{ URL::asset('images/iconos/cancelar.png') }}" ><br>[Esc] [Cerrar]</button>
-
-
-            </div>
-
-
-
-        </div>
-    </div>
-</div>
 
 <div id="modal-participantes" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none" data-backdrop="static">
     <div class="modal-dialog">
@@ -336,6 +252,93 @@
                     </div>
                 </div>
             </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-eventos-participante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="control-label">Eventos Asignados al Participante: <span id="participante"></span></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered display compact" id="detalle-eventos">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">Evento</th>
+                                    <th style="width: 50px;">Fecha Inicio</th>
+                                    <th style="width: 50px;">Fecha Fin</th>
+
+
+                                    <th style="width: 10px;"><center>Ver</center></th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" id="cancelar-eventos-participante"><img style="width: 20px; height: 20px;" src="{{ URL::asset('images/iconos/cancelar.png') }}" ><br>[Esc] [Cerrar]</button>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div id="modal-ver-evento" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="control-label">Evento: <span id="evento"></span></label>
+                    </div>
+                </div>
+                <div class="row qr" style="margin-top: 20px;">
+                    <div class="col-md-4 col-md-offset-2" style="">
+                        {{-- <label class="control-label" style="text-align: center;">QR</label> --}}
+                        <img title="Código QR" style="cursor: pointer;height: 165px !important;" src="{{ URL::asset('images/camara.png') }}" class="thumb-lg img-thumbnail usuario_foto" alt="profile-image" id="cargar_qr">
+                    </div>
+                    <div class="col-md-4" style="">
+                        <center>
+
+                            <div style="margin-top: 20px;">
+                                <a id="descargar_pdf" class="btn btn-default"><img style="width: 30px; height: 30px;" src="{{ URL::asset('images/iconos/pdf.png') }}" > &nbsp;&nbsp;&nbsp; Descargar PDF</a>
+                            </div>
+
+                            <div style="margin-top: 20px;">
+                                <button type="button" id="enviar_qr" class="btn btn-default"><img style="width: 30px; height: 30px;" src="{{ URL::asset('images/iconos/importante.png') }}" > &nbsp;&nbsp;&nbsp; Enviar QR</button>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" id="cancelar-ver-evento"><img style="width: 20px; height: 20px;" src="{{ URL::asset('images/iconos/cancelar.png') }}" ><br>[Esc] [Cerrar]</button>
+
+
+            </div>
+
+
 
         </div>
     </div>

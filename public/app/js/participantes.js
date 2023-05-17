@@ -190,6 +190,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     return false;
                 }
 
+                obtener_eventos_segun_participante_registro(response);
+
             })
 
         }
@@ -490,7 +492,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementsByName("participante_nrodoc")[0].addEventListener("keydown", function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         if(e.key == "Enter") {
             validar_duplicacidad();
         }
@@ -498,22 +500,12 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     document.getElementsByName("participante_nrodoc")[0].addEventListener("change", function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         validar_duplicacidad();
 
     })
 
-    $(document).on("click", "#ver-eventos", function (e) {
-        e.preventDefault();
-
-        var datos = participantes.datatable.row('.selected').data();
-        if (typeof datos == "undefined") {
-            BASE_JS.sweet({
-                text: seleccionar_registro
-            });
-
-            return false;
-        }
+    function obtener_eventos_segun_participante_registro(datos) {
         eventos.ajax({
             url: '/obtener_eventos_segun_participante_registro',
             datos: { participante_id: datos.participante_id, registro_id: datos.registro_id_ultimo }
@@ -534,8 +526,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("participante").innerText = participante;
                 document.getElementById("detalle-eventos").getElementsByTagName("tbody")[0].innerHTML = html;
             }
+            $("#modal-eventos-participante").modal("show");
         })
-        $("#modal-eventos-participante").modal("show");
+    }
+
+    $(document).on("click", "#ver-eventos", function (e) {
+        e.preventDefault();
+
+        var datos = participantes.datatable.row('.selected').data();
+        if (typeof datos == "undefined") {
+            BASE_JS.sweet({
+                text: seleccionar_registro
+            });
+
+            return false;
+        }
+
+        obtener_eventos_segun_participante_registro(datos);
+
+
     })
 
 
