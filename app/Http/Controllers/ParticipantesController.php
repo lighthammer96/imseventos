@@ -180,10 +180,10 @@ class ParticipantesController extends Controller
             if ($request->input("participante_id") == '' && $data["operacion"] == "NUEVO") {
 
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
-                $_POST["participante_id"] = $result["id"];
                 print_r($result);
-                $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
+                $_POST["participante_id"] = $result["id"];
                 print_r($r);
+                $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
                 $_POST["registro_id"] = $r["id"];
 
                 $data_update = array();
