@@ -93,7 +93,7 @@ class Controller extends BaseController
         // $r = DB::select($sql);
         // print_r($r);
         // exit;
-        $sql = "SELECT cols.column_name, cols.data_type, CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.key_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name AND k.position_in_unique_constraint IS NULL;)
+        $sql = "SELECT cols.column_name, cols.data_type, CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.key_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name AND k.position_in_unique_constraint IS NULL)
         THEN 1 ELSE 0 END as is_primary_key,
         CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.key_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name) AND
         EXISTS(SELECT * FROM INFORMATION_SCHEMA.referential_constraints f INNER JOIN INFORMATION_SCHEMA.key_column_usage k ON k.constraint_name = f.constraint_name WHERE k.column_name = cols.column_name)
