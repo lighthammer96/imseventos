@@ -100,10 +100,10 @@ class Controller extends BaseController
         THEN 1 ELSE 0 END as is_foreign_key
         FROM information_schema.columns cols
         WHERE cols.table_schema='{$schema}' AND cols.table_name= '{$table}'";
-        echo $sql;
+        // echo $sql;
         $result = DB::select($sql);
-        print_r($result);
-        exit;
+        // print_r($result);
+        // exit;
         foreach ($result as $key => $value) {
             array_push($campos, $value->column_name);
             if($value->is_primary_key == 1) {
@@ -122,7 +122,7 @@ class Controller extends BaseController
         $data["campos"] = $campos;
         $data["primary_key"] = $primary_key;
         $data["foreign_key"] = $foreign_key;
-
+        print_r($data); exit;
         return $data;
     }
 
