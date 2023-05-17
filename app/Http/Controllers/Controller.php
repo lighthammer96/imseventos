@@ -76,11 +76,11 @@ class Controller extends BaseController
         $schema = $tabla[0];
         $table = $tabla[1];
 
-        $sql = "SELECT * FROM INFORMATION_SCHEMA.constraint_column_usage k WHERE k.table_name='{$table}' and k.column_name = 'participante_id'";
+        $sql = "SELECT * FROM information_schema.constraint_column_usage";
         echo $sql;
         $r = DB::select($sql);
         print_r($r);
-
+        exit;
         $sql = "SELECT cols.column_name, cols.data_type, CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.constraint_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name)
         THEN 1 ELSE 0 END as is_primary_key,
         CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.key_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name) AND
