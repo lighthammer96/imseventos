@@ -86,7 +86,7 @@ class Controller extends BaseController
         echo $sql;
         $result = DB::select($sql);
         print_r($result);
-
+        exit;
         foreach ($result as $key => $value) {
             array_push($campos, $value->column_name);
             if($value->is_primary_key == 1) {
