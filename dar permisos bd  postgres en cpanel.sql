@@ -25,7 +25,7 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA seguridad TO smi_user;
 
 -- PARA PRODUCCION
 
-GRANT CONNECT ON DATABASE smisystem_bd TO smisystem_user;
+GRANT CONNECT ON DATABASE smisystem_eventos TO smisystem_user;
 
 GRANT USAGE ON SCHEMA public TO smisystem_user;
 GRANT USAGE ON SCHEMA eventos TO smisystem_user;
@@ -37,7 +37,7 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA eventos TO smisystem_user;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA seguridad TO smisystem_user;
 
 
--- GRANT ALL PRIVILEGES ON DATABASE smisystem_bd TO smisystem_user; -- no funciono
+-- GRANT ALL PRIVILEGES ON DATABASE smisystem_eventos TO smisystem_user; -- no funciono
 
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO smisystem_user;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA eventos TO smisystem_user;
