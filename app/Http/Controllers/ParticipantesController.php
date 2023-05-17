@@ -181,7 +181,9 @@ class ParticipantesController extends Controller
 
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
                 $_POST["participante_id"] = $result["id"];
+                print_r($result);
                 $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
+                print_r($r);
                 $_POST["registro_id"] = $r["id"];
 
                 $data_update = array();
@@ -249,7 +251,7 @@ class ParticipantesController extends Controller
                 }
 
             }
-
+            print_r($result);
             DB::commit();
             $result["registro_id_ultimo"] = $_POST["registro_id"];
             $result["participante_id"] = $result["id"];

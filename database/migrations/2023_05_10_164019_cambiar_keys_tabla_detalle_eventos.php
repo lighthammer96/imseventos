@@ -41,6 +41,6 @@ class CambiarKeysTablaDetalleEventos extends Migration
             ALTER TABLE eventos.detalle_eventos ADD CONSTRAINT pk_detalle_eventos PRIMARY KEY (evento_id,participante_id);
             ALTER TABLE eventos.detalle_eventos ADD CONSTRAINT fk_eventos_detalle_eventos FOREIGN KEY (evento_id) REFERENCES eventos.eventos(evento_id);
             ALTER TABLE eventos.detalle_eventos ADD CONSTRAINT fk_participantes_detalle_eventos FOREIGN KEY (participante_id) REFERENCES eventos.participantes(participante_id);
-        ")
+        ");
     }
 }
