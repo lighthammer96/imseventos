@@ -83,7 +83,7 @@ class Controller extends BaseController
         THEN 1 ELSE 0 END as is_foreign_key
         FROM information_schema.columns cols
         WHERE cols.table_schema='{$schema}' AND cols.table_name= '{$table}'";
-
+        echo $sql;
         $result = DB::select($sql);
         print_r($result);
 
