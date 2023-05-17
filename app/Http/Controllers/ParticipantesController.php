@@ -180,9 +180,7 @@ class ParticipantesController extends Controller
             if ($request->input("participante_id") == '' && $data["operacion"] == "NUEVO") {
 
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
-                print_r($result);
                 $_POST["participante_id"] = $result["id"];
-                print_r($r);
                 $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
                 $_POST["registro_id"] = $r["id"];
 
@@ -251,7 +249,7 @@ class ParticipantesController extends Controller
                 }
 
             }
-            print_r($result);
+
             DB::commit();
             $result["registro_id_ultimo"] = $_POST["registro_id"];
             $result["participante_id"] = $result["id"];

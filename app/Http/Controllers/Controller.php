@@ -150,8 +150,7 @@ class Controller extends BaseController
         // echo $table."\n";
         // echo gettype(array_values($datos)[1])."\n";
         //PONEMOS EN EL PRIMER ELEMENTO A LA CLAVE SE REPITE EN RESTO DE REGISTRO EN EL CASO DE SER UN DETALLE
-        print_r($fields);
-        //exit;
+        // print_r($datos); exit;
          // cuando es detalle
         if ($tipoTabla == "D") {
             $cantElementos = 0;
