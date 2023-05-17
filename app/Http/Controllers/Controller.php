@@ -85,6 +85,7 @@ class Controller extends BaseController
         WHERE cols.table_schema='{$schema}' AND cols.table_name= '{$table}'";
 
         $result = DB::select($sql);
+        print_r($result);
 
         foreach ($result as $key => $value) {
             array_push($campos, $value->column_name);
