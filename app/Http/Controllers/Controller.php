@@ -89,7 +89,7 @@ class Controller extends BaseController
         foreach ($result as $key => $value) {
             array_push($campos, $value->column_name);
             if($value->is_primary_key == "1") {
-
+                echo "ola";
                 array_push($primary_key, $value->column_name);
             }
 
