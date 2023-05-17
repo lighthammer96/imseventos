@@ -76,7 +76,19 @@ class Controller extends BaseController
         $schema = $tabla[0];
         $table = $tabla[1];
 
-        $sql = "SELECT * FROM information_schema.columns";
+        $sql = "SELECT * FROM INFORMATION_SCHEMA.constraint_column_usage";
+        echo $sql;
+        $r = DB::select($sql);
+        print_r($r);
+        $sql = "SELECT * FROM INFORMATION_SCHEMA.key_column_usage";
+        echo $sql;
+        $r = DB::select($sql);
+        print_r($r);
+        $sql = "SELECT * FROM INFORMATION_SCHEMA.referential_constraints";
+        echo $sql;
+        $r = DB::select($sql);
+        print_r($r);
+        $sql = "SELECT * FROM INFORMATION_SCHEMA.columns";
         echo $sql;
         $r = DB::select($sql);
         print_r($r);
