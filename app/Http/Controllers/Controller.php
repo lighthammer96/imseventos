@@ -89,12 +89,12 @@ class Controller extends BaseController
 
         foreach ($result as $key => $value) {
             array_push($campos, $value->column_name);
-            if($value->is_primary_key == "1") {
-                echo "ola";
+            if($value->is_primary_key == 1) {
+
                 array_push($primary_key, $value->column_name);
             }
 
-            if($value->is_foreign_key == "1") {
+            if($value->is_foreign_key == 1) {
 
                 array_push($foreign_key, $value->column_name);
             }
@@ -136,7 +136,7 @@ class Controller extends BaseController
         // $tabla  = $this->sinSchema($table);
         //$fields = $this->db->list_fields($tabla);
         $fields = $this->listar_campos($table);
-        print_r($fields); exit;
+        // print_r($fields); exit;
         $datos = array();
 
         //ordenamos los campos de acuerdo a la tabla que corresponde
