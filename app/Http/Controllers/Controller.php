@@ -76,6 +76,16 @@ class Controller extends BaseController
         $schema = $tabla[0];
         $table = $tabla[1];
 
+        // anterior en cpanel no funcionaba 17/05/2023
+        // $sql = "SELECT cols.column_name, cols.data_type, CASE WHEN EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.constraint_column_usage k WHERE cols.table_name = k.table_name and k.column_name = cols.column_name)
+        // THEN 1 ELSE 0 END as is_primary_key,
+        // CASE WHEN EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.key_column_usage k WHERE cols.table_name = k.table_name and k.column_name = cols.column_name) AND
+        // EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.referential_constraints f INNER JOIN INFORMATION_SCHEMA.key_column_usage k ON k.constraint_name = f.constraint_name WHERE k.column_name = cols.column_name)
+        // THEN 1 ELSE 0 END as is_foreign_key
+        // FROM information_schema.columns cols
+        // WHERE cols.table_schema='{$schema}' AND cols.table_name= '{$table}'";
+
+
         $sql = "SELECT cols.column_name, cols.data_type, CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.key_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name AND k.position_in_unique_constraint IS NULL)
         THEN 1 ELSE 0 END as is_primary_key,
         CASE WHEN EXISTS(SELECT * FROM INFORMATION_SCHEMA.key_column_usage k WHERE k.table_schema = cols.table_schema AND k.table_name = cols.table_name AND k.column_name = cols.column_name) AND
@@ -83,10 +93,9 @@ class Controller extends BaseController
         THEN 1 ELSE 0 END as is_foreign_key
         FROM information_schema.columns cols
         WHERE cols.table_schema='{$schema}' AND cols.table_name= '{$table}'";
-        // echo $sql;
+
         $result = DB::select($sql);
-        // print_r($result);
-        // exit;
+
         foreach ($result as $key => $value) {
             array_push($campos, $value->column_name);
             if($value->is_primary_key == 1) {
@@ -105,7 +114,7 @@ class Controller extends BaseController
         $data["campos"] = $campos;
         $data["primary_key"] = $primary_key;
         $data["foreign_key"] = $foreign_key;
-        // print_r($data); exit;
+
         return $data;
     }
 
