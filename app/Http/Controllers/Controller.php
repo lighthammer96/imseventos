@@ -76,7 +76,7 @@ class Controller extends BaseController
         $schema = $tabla[0];
         $table = $tabla[1];
 
-        $sql = "ELECT 1 FROM INFORMATION_SCHEMA.constraint_column_usage k WHERE k.table_name='{$table}' and k.column_name = 'participante_id'";
+        $sql = "SELECT 1 FROM INFORMATION_SCHEMA.constraint_column_usage k WHERE k.table_name='{$table}' and k.column_name = 'participante_id'";
         $r = DB::select($sql);
         print_r($r);
 
