@@ -566,7 +566,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("cargar_qr").setAttribute("src", BaseUrl + "/images/camara.png");
                 }
 
-                document.getElementById("descargar_pdf").setAttribute("download", response[0].participante_nombres + " " + response[0].participante_apellidos + ".pdf");
+                document.getElementById("descargar_pdf").setAttribute("download", response[0].participante_apellidos + " " + response[0].participante_nombres + ".pdf");
                 document.getElementById("descargar_pdf").setAttribute("href", BaseUrl + "/PDF/" + response[0].de_codigoqr + ".pdf");
 
                 document.getElementById("evento").innerText = response[0].evento_descripcion;
