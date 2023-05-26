@@ -350,11 +350,11 @@ document.addEventListener("DOMContentLoaded", function() {
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5 });
     scanner.addListener('scan', function (content, image) {
         console.log(content);
-        console.log(image);gi
+        console.log(image);
 
     });
     Instascan.Camera.getCameras().then(function (cameras) {
-
+        console.log(cameras);
         if (cameras.length > 0) {
 
             scanner.start(cameras[0]);
