@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("camara").addEventListener("change", function(e) {
-        scanner.start(cameras[this.value]);
+        scanner.start(camaras[this.value]);
     })
 
 
