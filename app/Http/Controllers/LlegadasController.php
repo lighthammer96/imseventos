@@ -92,6 +92,7 @@ class LlegadasController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             $response["status"] = "ei";
+            var_dump($participante);
             $response["participante"] = $participante[0];
             $response["asistencia"] = $asistencia[0];
             $response["code"] = "";
