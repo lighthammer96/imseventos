@@ -347,10 +347,16 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
 
+    // referencia https://github.com/schmich/instascan
+    console.log(BaseUrl);
+    var sound = new Audio("barcode.wav");
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan', function (content, image) {
-        console.log(content);
-        console.log(image);
+        // console.log(content);
+        // console.log(image);
+        sound.play();
+        asistencias.buscarEnFormulario("codigo_qr").value = content;
+        $("#modal-leer-qr").modal("hide");
 
     });
 
