@@ -12,6 +12,7 @@ use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\ParticipantesController;
 use App\Http\Controllers\ImportarController;
+use App\Http\Controllers\LlegadasController;
 use App\Http\Controllers\ProgramasController;
 use Illuminate\Support\Facades\Route;
 
@@ -156,6 +157,16 @@ Route::post('asistencias/get_asistencias', [AsistenciasController::class, "get_a
 Route::post('asistencias/eliminar_asistencias', [AsistenciasController::class, "eliminar_asistencias"]);
 Route::post('asistencias/select_init', [AsistenciasController::class, "select_init"]);
 Route::post('asistencias/guardar_permisos', [AsistenciasController::class, "guardar_permisos"]);
+
+// LLEGADAS
+Route::get('llegadas/index', [LlegadasController::class, "index"]);
+Route::post('llegadas/buscar_datos', [LlegadasController::class, "buscar_datos"]);
+Route::post('llegadas/guardar_llegadas', [LlegadasController::class, "guardar_llegadas"]);
+Route::post('llegadas/get_llegadas', [LlegadasController::class, "get_llegadas"]);
+Route::post('llegadas/eliminar_llegadas', [LlegadasController::class, "eliminar_llegadas"]);
+Route::post('llegadas/select_init', [LlegadasController::class, "select_init"]);
+Route::post('llegadas/guardar_permisos', [LlegadasController::class, "guardar_permisos"]);
+
 
 // IMPORTAR
 

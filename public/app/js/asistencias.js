@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             case 'eliminar-asistencia':
                 event.preventDefault();
-                eliminar_evento();
+                eliminar_asistencia();
             break;
 
             case 'guardar-asistencia':
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function eliminar_evento() {
+    function eliminar_asistencia() {
         var datos = asistencias.datatable.row('.selected').data();
         if(typeof datos == "undefined") {
             BASE_JS.sweet({
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         break;
 
                     case 'F7':
-                        eliminar_evento();
+                        eliminar_asistencia();
                         event.preventDefault();
                         event.stopPropagation();
 
