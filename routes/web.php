@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AsistenciasController;
 use App\Http\Controllers\EventosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ModulosController;
@@ -144,9 +145,17 @@ Route::post('programas/buscar_datos', [ProgramasController::class, "buscar_datos
 Route::post('programas/guardar_programas', [ProgramasController::class, "guardar_programas"]);
 Route::post('programas/get_programas', [ProgramasController::class, "get_programas"]);
 Route::post('programas/eliminar_programas', [ProgramasController::class, "eliminar_programas"]);
-Route::post('programas/obtener_programas', [ProgramasController::class, "obtener_programas"]);
+Route::post('programas/obtener_programas_segun_tipo', [ProgramasController::class, "obtener_programas_segun_tipo"]);
 Route::post('programas/select_init', [ProgramasController::class, "select_init"]);
 
+// ASISTENCIAS
+Route::get('asistencias/index', [AsistenciasController::class, "index"]);
+Route::post('asistencias/buscar_datos', [AsistenciasController::class, "buscar_datos"]);
+Route::post('asistencias/guardar_asistencias', [AsistenciasController::class, "guardar_asistencias"]);
+Route::post('asistencias/get_asistencias', [AsistenciasController::class, "get_asistencias"]);
+Route::post('asistencias/eliminar_asistencias', [AsistenciasController::class, "eliminar_asistencias"]);
+Route::post('asistencias/select_init', [AsistenciasController::class, "select_init"]);
+Route::post('asistencias/guardar_permisos', [AsistenciasController::class, "guardar_permisos"]);
 
 // IMPORTAR
 

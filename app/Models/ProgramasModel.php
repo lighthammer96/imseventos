@@ -39,7 +39,17 @@ class ProgramasModel extends Model
         return $tabla;
     }
 
+    public function obtener_programas_segun_coliseo($data) {
+        $sql = "SELECT * FROM eventos.programas WHERE tp_id=2 AND estado='A' AND evento_id={$data["evento_id"]}";
+        $result = DB::select($sql);
+        return $result;
+    }
 
+    public function obtener_programas_segun_alimentos($data) {
+        $sql = "SELECT * FROM eventos.programas WHERE tp_id=1 AND estado='A' AND evento_id={$data["evento_id"]}";
+        $result = DB::select($sql);
+        return $result;
+    }
 
 
 }

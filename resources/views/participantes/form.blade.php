@@ -8,6 +8,8 @@
         text-align: center;
         cursor: pointer;
     }
+
+
 </style>
 <div id="modal-eventos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none" data-backdrop="static">
     <div class="modal-dialog">

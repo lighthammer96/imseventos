@@ -45,6 +45,12 @@ class EventosModel extends Model
         return $result;
     }
 
+    public function obtener_evento($evento_id) {
+        $sql = "SELECT * FROM eventos.eventos WHERE evento_id={$evento_id}";
+        $result = DB::select($sql);
+        return $result;
+    }
+
     public function obtener_todos_eventos() {
         $sql = "SELECT evento_id AS id, evento_descripcion AS descripcion FROM eventos.eventos";
         $result = DB::select($sql);
