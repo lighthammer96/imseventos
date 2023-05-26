@@ -63,7 +63,7 @@ class AsistenciasController extends Controller
 
             $data = $request->all();
             $result = array();
-
+            $participante[0] = array();
 
             $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
             if(count($participante) <= 0) {

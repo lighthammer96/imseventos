@@ -64,6 +64,7 @@ class LlegadasController extends Controller
             $data = $request->all();
             $result = array();
             $asistencia[0] = array();
+            $participante[0] = array();
 
 
             $participante = $this->llegadas_model->validar_codigo_qr_segun_evento($data);
