@@ -348,8 +348,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // referencia https://github.com/schmich/instascan
-    console.log(BaseUrl);
-    var sound = new Audio("barcode.wav");
+    // console.log(BaseUrl);
+    var sound = new Audio(BaseUrl+"/instascan/barcode.wav");
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan', function (content, image) {
         // console.log(content);
