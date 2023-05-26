@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
 
-    var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5 });
+    var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan', function (content, image) {
         console.log(content);
         console.log(image);
