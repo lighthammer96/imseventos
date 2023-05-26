@@ -63,7 +63,7 @@ class AsistenciasController extends Controller
 
             $data = $request->all();
             $result = array();
-            $participante[0] = array();
+
 
             $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
             if(count($participante) <= 0) {
@@ -90,7 +90,7 @@ class AsistenciasController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             $response["status"] = "ei";
-            $response["participante"] = $participante[0];
+            $response["participante"] = (isset($participante[0])) ? $participante[0] : array();
             $response["code"] = "";
             $response["msg"] = $e->getMessage();
             $response["permisos"] = $this->asistencias_model->obtener_permisos($data);

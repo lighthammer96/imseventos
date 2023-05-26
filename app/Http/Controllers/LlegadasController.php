@@ -63,8 +63,7 @@ class LlegadasController extends Controller
 
             $data = $request->all();
             $result = array();
-            $asistencia[0] = array();
-            $participante[0] = array();
+            
 
 
             $participante = $this->llegadas_model->validar_codigo_qr_segun_evento($data);
@@ -92,10 +91,9 @@ class LlegadasController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             $response["status"] = "ei";
-            print_r($participante);
-            var_dump($participante);
-            $response["participante"] = $participante[0];
-            $response["asistencia"] = $asistencia[0];
+
+            $response["participante"] = (isset($participante[0])) ? $participante[0] : array();
+            $response["asistencia"] = (isset($asistencia[0])) ? $asistencia[0] : array();
             $response["code"] = "";
             $response["msg"] = $e->getMessage();
 
