@@ -164,7 +164,7 @@
 
 
                         <div class="col-md-12">
-                            <video style="width: 100%; height: 250px;" id="preview"></video>
+                            <video style="width: 100%; height: 200px;" id="preview"></video>
                         </div>
                         <div class="col-md-12">
                             <label for="" class="control-label">Seleccione Cámara</label>
