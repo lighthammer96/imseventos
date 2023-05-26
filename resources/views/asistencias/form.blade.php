@@ -167,7 +167,10 @@
                             <video id="preview"></video>
                         </div>
                         <div class="col-md-12">
-                            
+                            <label for="" class="control-label">Seleccione Cámara</label>
+                            <select name="camara" id="camara" class="form-comtrol entrada">
+                                
+                            </select>
                         </div>
 
 

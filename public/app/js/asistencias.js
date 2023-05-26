@@ -354,7 +354,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     });
     Instascan.Camera.getCameras().then(function (cameras) {
-        console.log(cameras);
+        // console.log(cameras);
+        var options = '';
+        for (let index = 0; index < cameras.length; index++) {
+            options += '<option value="'+index+'">'+cameras[index].name+'</option>';
+
+        }
+        document.getElementById("camara").innerHTML = options;
         if (cameras.length > 0) {
 
             scanner.start(cameras[0]);
