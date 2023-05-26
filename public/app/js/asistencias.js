@@ -353,8 +353,11 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(image);
 
     });
+
+    var camaras = [];
     Instascan.Camera.getCameras().then(function (cameras) {
         // console.log(cameras);
+        camaras = cameras;
         var options = '';
         for (let index = 0; index < cameras.length; index++) {
             options += '<option value="'+index+'">'+cameras[index].name+'</option>';
