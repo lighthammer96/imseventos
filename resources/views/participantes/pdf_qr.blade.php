@@ -106,7 +106,7 @@
                 {{-- <h3>QR</h3> --}}
                 <h3>{{ $participante[0]->evento_descripcion }}</h3>
                 <br>
-                <h3>{{ $participante[0]->participante_nombres }} {{ $participante[0]->participante_apellidos }}</h3>
+                <h3>Name: {{ $participante[0]->participante_nombres }} {{ $participante[0]->participante_apellidos }}</h3>
             </div>
         </div>
 
@@ -117,7 +117,7 @@
             <div class="col" style="width: 100%; text-align: center;">
                 <img width="250" height="" src="<?php echo URL::asset('QR/'.$participante[0]->de_codigoqr_ruta); ?>" alt="">
                 <br><br>
-                <h3>Código: {{ $participante[0]->de_codigoqr }}</h3>
+                <h3>Number Code: {{ $participante[0]->de_codigoqr }}</h3>
             </div>
 
         </div>

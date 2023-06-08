@@ -4,12 +4,13 @@
     </div>
     <div id="texto-cabecera"  style="width: 83%; float: left;">
         <h2 style="font-size: 26;">
-            {{ traducir("traductor.titulo_cabecera_1") }}
+            International Missionary Society
         </h2>
         <h3 style="font-size: 18px;">
-            {{ traducir("traductor.titulo_cabecera_2") }}
+            Seventh-day Adventist Church, Reform Movement <br>
+            General Conference
         </h3>
-       
+
     </div>
 
 

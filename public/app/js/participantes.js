@@ -180,6 +180,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (registro_correo != "") {
             required = required && participantes.validar_email("registro_correo");
+        } else {
+            required = required && participantes.required("registro_correo");
         }
 
 
