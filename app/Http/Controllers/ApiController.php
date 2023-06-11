@@ -3,35 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\BaseModel;
-use App\Models\DistritosModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
     //
     private $base_model;
-    private $distritos_model;
+
 
     public function __construct() {
         parent:: __construct();
-        $this->distritos_model = new DistritosModel();
+
         $this->base_model = new BaseModel();
     }
 
     public function login(Request $request) {
-        $pais = explode("|", $_REQUEST["pais_id"]);
-        $tipodoc = explode("|", $_REQUEST["idtipodoc"]);
+        $user = strtolower($request->input('user'));
+        $pass = $request->input('pass');
+        // $clave = Hash::make('1235');
+        // echo $clave; exit;
+        // echo Hash::check("1235", $clave);
+        $sql_login = "SELECT u.*, p.* FROM seguridad.usuarios AS u
+        INNER JOIN seguridad.perfiles AS p ON(u.perfil_id=p.perfil_id)
 
-        $sql = "SELECT m.*, i.idioma_codigo, CASE WHEN d.delegado_id IS NULL THEN 0 ELSE d.delegado_id END AS delegado_id, CASE WHEN d.asamblea_id IS NULL THEN 0 ELSE d.asamblea_id END AS asamblea_id FROM iglesias.miembro AS m
-        INNER JOIN iglesias.paises AS p ON(m.pais_id=p.pais_id)
-        INNER JOIN public.idiomas AS i ON(i.idioma_id=p.idioma_id)
-        LEFT JOIN asambleas.delegados AS d ON(d.idmiembro=m.idmiembro AND d.estado='A')
-        WHERE m.nrodoc='{$request->input("user")}' AND m.nrodoc='{$request->input("pass")}' AND m.pais_id={$pais[0]} AND m.idtipodoc={$tipodoc[0]}";
-        // die($sql);
-        $response = DB::select($sql);
-        echo json_encode($response);
+
+        WHERE lower(u.usuario_user)='{$user}'";
+        // die($sql_login);
+        $result = DB::select($sql_login);
+
+        if(!isset($result[0]->usuario_user) || !isset($result[0]->idmiembro) || !isset($result[0]->perfil_id)) {
+            $data["response"] = "nouser";
+        }
+
+        if(count($result) > 0 && $result[0]->perfil_id != 1 && $result[0]->perfil_id != 2) {
+            $data["response"] = "nouser";
+        }
+
+        // print_r($result); exit;
+        if(count($result) > 0 && isset($result[0]->usuario_pass) && Hash::check($pass, $result[0]->usuario_pass)) {
+            $data["response"] = "ok";
+        }
+        echo json_encode($data);
         // print("hola");
     }
 
@@ -190,10 +205,7 @@ class ApiController extends Controller
     }
 
 
-    public function buscar_datos() {
-        $json_data = $this->distritos_model->tabla()->obtenerDatos();
-        echo json_encode($json_data);
-    }
+
 
 
     public function guardar_distritos(Request $request) {
@@ -264,7 +276,8 @@ class ApiController extends Controller
 
     public function obtener_url() {
         //$data["url"] = "https://iglesia.solucionesahora.com/";
-        $data["url"] = "https://smisystem.org/imssystem/public/";
+        // $data["url"] = "https://smisystem.org/imssystem/public/";
+        $data["url"] = "https://smisystem.org/imseventos/public/";
         echo json_encode($data);
     }
 
