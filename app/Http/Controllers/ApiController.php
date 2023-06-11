@@ -34,7 +34,7 @@ class ApiController extends Controller
         // die($sql_login);
         $result = DB::select($sql_login);
 
-        if(!isset($result[0]->usuario_user) || !isset($result[0]->idmiembro) || !isset($result[0]->perfil_id)) {
+        if(!isset($result[0]->usuario_user)  || !isset($result[0]->perfil_id)) {
             $data["response"] = "nouser";
         }
 
@@ -46,6 +46,8 @@ class ApiController extends Controller
         if(count($result) > 0 && isset($result[0]->usuario_pass) && Hash::check($pass, $result[0]->usuario_pass)) {
             $data["response"] = "ok";
         }
+
+        $data["datos"] = $result;
         echo json_encode($data);
         // print("hola");
     }
