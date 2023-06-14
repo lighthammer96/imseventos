@@ -132,25 +132,36 @@
                         <input type="hidden" name="registro_id_ultimo" class="input-sm entrada">
                         <input type="hidden" name="usuario_user" value="web" class="input-sm entrada">
                         <input type="hidden" name="operacion" value="NUEVO" class="input-sm entrada">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label class="control-label">Nombres</label>
 
                             <input autofocus="autofocus" type="text" class="form-control input-sm entrada" name="participante_nombres"  placeholder=""/>
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label class="control-label">Apellidos</label>
 
                             <input type="text" class="form-control input-sm entrada" name="participante_apellidos"  placeholder=""/>
 
                         </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Celular</label>
 
+                            <input type="text" class="form-control input-sm entrada" name="registro_celular"  placeholder=""/>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Correo</label>
+
+                            <input type="text" class="form-control input-sm entrada" name="registro_correo"  placeholder=""/>
+
+                        </div>
 
                     </div>
 
 
 
-                    <div class="row">
+                    {{-- <div class="row">
 
                         <div class="col-md-3">
                             <label class="control-label">Celular</label>
@@ -172,8 +183,8 @@
                         </div>
 
 
-                    </div>
-                    <div class="row">
+                    </div> --}}
+                    {{-- <div class="row">
                         <div class="col-md-6">
                             <label class="control-label">Iglesia</label>
 
@@ -215,7 +226,7 @@
                         </div>
 
 
-                    </div>
+                    </div> --}}
 
                     <div class="row">
                         <div class="col-md-6">
