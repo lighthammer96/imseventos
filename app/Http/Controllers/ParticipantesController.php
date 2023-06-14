@@ -153,6 +153,8 @@ class ParticipantesController extends Controller
             DB::beginTransaction();
             $data = $request->all();
 
+            $data["evento_id"] = (isset($data["evento_id"])) ? $data["evento_id"] : array();
+
             if(isset($data["usuario_user"])) {
                 session(['usuario_user' => $data["usuario_user"]]);
             }
@@ -193,7 +195,10 @@ class ParticipantesController extends Controller
                 // $this->base_model->insertar($this->preparar_datos("eventos.detalle_eventos", $_POST));
             }else{
                 //
-                DB::table("eventos.detalle_eventos")->where("participante_id", $data["participante_id"])->where("registro_id", $_POST["registro_id_ultimo"])->whereNotIn('evento_id', $data["evento_id"])->delete();
+                if(count($data["evento_id"]) > 0) {
+                    DB::table("eventos.detalle_eventos")->where("participante_id", $data["participante_id"])->where("registro_id", $_POST["registro_id_ultimo"])->whereNotIn('evento_id', $data["evento_id"])->delete();
+                }
+
                 // print_r($this->preparar_datos("eventos.participantes", $_POST)); exit;
                 $result = $this->base_model->modificar($this->preparar_datos("eventos.participantes", $_POST));
                 $this->base_model->modificar($this->preparar_datos("eventos.registros", $_POST));
