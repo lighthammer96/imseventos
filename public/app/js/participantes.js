@@ -551,6 +551,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     })
                 }
 
+                if(array_url[array_url.length - 1] == "formulario_vuelos") {
+                    if(response.participante.length <= 0) {
+                        BASE_JS.sweet({
+                            text: '¡NO EXISTE EL CODIGO QR: '+codigo_qr+' ASIGNADO A UN PARTICIPANTE!'
+                        });
+                        return false;
+                    }
+                }
+
 
 
 
@@ -572,11 +581,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
-    $(document).on("change", "input[name=codigo_qr]", function(e) {
+    $(document).on("click", "#consultar-codigo", function(e) {
+        var required = true;
+        required = required && participantes.required("codigo_qr");
+        if(required) {
 
-        validar_duplicacidad();
+            validar_duplicacidad();
+        }
 
     })
+
+    // $(document).on("change", "input[name=codigo_qr]", function(e) {
+
+    //     validar_duplicacidad();
+
+    // })
 
     $(document).on("keydown", "input[name=participante_nrodoc]", function(e) {
         // e.preventDefault();

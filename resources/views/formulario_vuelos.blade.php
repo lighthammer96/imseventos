@@ -133,6 +133,9 @@
                             <input type="text" title="Colocar el código que esta debajo del QR" class="form-control input-sm entrada" name="codigo_qr"  placeholder=""/>
 
                         </div>
+                        <div class="col-md-1" style="margin-top: 27px;">
+                            <button type="button" id="consultar-codigo" class="btn btn-primary btn-sm">Consultar</button>
+                        </div>
                         <div class="col-md-2">
                             <label class="control-label">Nombres</label>
 
@@ -151,7 +154,7 @@
                             <input type="text" class="form-control input-sm entrada" name="registro_celular"  placeholder=""/>
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="control-label">Correo</label>
 
                             <input type="text" class="form-control input-sm entrada" name="registro_correo"  placeholder=""/>
