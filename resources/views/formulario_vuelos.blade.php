@@ -128,7 +128,7 @@
                         <input type="hidden" name="usuario_user" value="web" default-value="web" class="input-sm entrada">
                         <input type="hidden" name="operacion" value="MODIFICAR" default-value="MODIFICAR"  class="input-sm entrada">
                         <div class="col-md-2">
-                            <label class="control-label">Código QR</label>
+                            <label class="control-label">Código QR (Incluir guiones)</label>
 
                             <input type="text" title="Colocar el código que esta debajo del QR" class="form-control input-sm entrada" name="codigo_qr"  placeholder=""/>
 
