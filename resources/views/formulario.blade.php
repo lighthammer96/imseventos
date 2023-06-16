@@ -130,8 +130,8 @@
                     <div class="row">
                         <input type="hidden" name="participante_id" class="input-sm entrada">
                         <input type="hidden" name="registro_id_ultimo" class="input-sm entrada">
-                        <input type="hidden" name="usuario_user" value="web" class="input-sm entrada">
-                        <input type="hidden" name="operacion" value="NUEVO" class="input-sm entrada">
+                        <input type="hidden" name="usuario_user" value="web" default-value="web" class="input-sm entrada">
+                        <input type="hidden" name="operacion" value="NUEVO" default-value="NUEVO" class="input-sm entrada">
                         <div class="col-md-6">
                             <label class="control-label">Nombres</label>
 

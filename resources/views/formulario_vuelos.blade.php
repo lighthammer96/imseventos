@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <label class="control-label">Pais</label>
 
                             <select name="idpais" id="idpais" class="selectizejs entrada"></select>
@@ -117,40 +117,41 @@
                             <label class="control-label">Tipo Documento</label>
 
                             <select name="idtipodoc" id="idtipodoc" class="selectizejs entrada"></select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="control-label">Nro Documento</label>
+                        </div> --}}
 
-                            <input type="text" class="form-control input-sm entrada" name="participante_nrodoc"  placeholder=""/>
-
-                        </div>
 
                     </div>
 
                     <div class="row">
                         <input type="hidden" name="participante_id" class="input-sm entrada">
                         <input type="hidden" name="registro_id_ultimo" class="input-sm entrada">
-                        <input type="hidden" name="usuario_user" value="web" class="input-sm entrada">
-                        <input type="hidden" name="operacion" value="NUEVO" class="input-sm entrada">
-                        <div class="col-md-3">
+                        <input type="hidden" name="usuario_user" value="web" default-value="web" class="input-sm entrada">
+                        <input type="hidden" name="operacion" value="MODIFICAR" default-value="MODIFICAR"  class="input-sm entrada">
+                        <div class="col-md-2">
+                            <label class="control-label">Código QR</label>
+
+                            <input type="text" title="Colocar el código que esta debajo del QR" class="form-control input-sm entrada" name="codigo_qr"  placeholder=""/>
+
+                        </div>
+                        <div class="col-md-2">
                             <label class="control-label">Nombres</label>
 
                             <input autofocus="autofocus" type="text" class="form-control input-sm entrada" name="participante_nombres"  placeholder=""/>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="control-label">Apellidos</label>
 
                             <input type="text" class="form-control input-sm entrada" name="participante_apellidos"  placeholder=""/>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="control-label">Celular</label>
 
                             <input type="text" class="form-control input-sm entrada" name="registro_celular"  placeholder=""/>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label class="control-label">Correo</label>
 
                             <input type="text" class="form-control input-sm entrada" name="registro_correo"  placeholder=""/>
