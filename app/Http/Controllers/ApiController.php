@@ -287,9 +287,9 @@ class ApiController extends Controller
     }
 
 
-    public function guardar_asistencia() {
+    public function obtener_eventos() {
         $eventos = $this->eventos_model->obtener_eventos();
-        echo json_encode($result);
+        echo json_encode($eventos);
     }
 
 }
