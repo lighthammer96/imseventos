@@ -1,7 +1,8 @@
 var participantes = new BASE_JS('participantes', 'participantes');
 var principal = new BASE_JS('principal', 'principal');
 var eventos = new BASE_JS('eventos', 'eventos');
-
+var url = window.location;
+var array_url = url.pathname.split("/");
 // console.log(session['iddivision']);
 document.addEventListener("DOMContentLoaded", function () {
     // participantes.buscarEnFormulario("descripcion").solo_letras();
@@ -163,14 +164,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function guardar_participante() {
-
-
         var registro_correo = document.getElementsByName("registro_correo")[0].value;
-
-
         var required = true;
 
-        required = required && participantes.required("evento_id[]");
+
+
+        if(array_url[array_url.length - 1] == "formulario_vuelos" && participantes.buscarEnFormulario("participante_id").value == "") {
+            BASE_JS.sweet({
+                text: "Por medio de este formulario no se permiten realizar nuevos registros, solo modificar datos de vuelo de participantes registrados!"
+            });
+            return false;
+        } else {
+
+            required = required && participantes.required("evento_id[]");
+
+
+        }
+
+
+
         required = required && participantes.required("participante_nombres");
         required = required && participantes.required("participante_apellidos");
 
@@ -183,6 +195,9 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             required = required && participantes.required("registro_correo");
         }
+
+
+
 
 
         if (required) {
@@ -334,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    document.getElementById("calendar-participante_fecha_nacimiento").addEventListener("click", function (e) {
+    $(document).on("click", "#calendar-participante_fecha_nacimiento", function (e) {
         e.preventDefault();
 
 
@@ -454,21 +469,73 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function validar_duplicacidad() {
+
+        // console.log(url.pathname.split("/"));}
         var idpais = participantes.buscarEnFormulario("idpais").value;
         var idtipodoc = participantes.buscarEnFormulario("idtipodoc").value;
         var participante_nrodoc = participantes.buscarEnFormulario("participante_nrodoc").value;
+        var codigo_qr = participantes.buscarEnFormulario("codigo_qr").value;
+
         var required = true;
-        required = required && participantes.required("idpais");
-        required = required && participantes.required("idtipodoc");
+        if(array_url[array_url.length - 1] != "formulario_vuelos") {
+
+            required = required && participantes.required("idpais");
+            required = required && participantes.required("idtipodoc");
+        } else {
+            required = required && participantes.required("codigo_qr");
+        }
+
+
+
+
+        var ruta = ""
+        var objeto_datos = {};
+        if(array_url[array_url.length - 1] == "formulario_vuelos") {
+            ruta = '/obtener_participante_segun_codigoqr';
+            objeto_datos = { codigo_qr: codigo_qr };
+
+        } else {
+            ruta = '/validar_participante_segun_nrodoc';
+            objeto_datos = { idpais: idpais, idtipodoc: idtipodoc, participante_nrodoc: participante_nrodoc };
+        }
         if(required) {
             var promise = participantes.ajax({
-                url: '/validar_participante_segun_nrodoc',
-                datos: { idpais: idpais, idtipodoc: idtipodoc, participante_nrodoc: participante_nrodoc }
+                url: ruta,
+                datos: objeto_datos
             }).then(function (response) {
                 if(response.participante.length > 0) {
 
                     var promise = participantes.get(response.participante[0].participante_id);
+                    promise.then(function() {
+                        participantes.buscarEnFormulario("codigo_qr").value = codigo_qr;
+                    })
+                    if(array_url[array_url.length - 1] == "formulario_vuelos") {
 
+
+
+
+                        eventos.ajax({
+                            url: '/obtener_eventos_segun_participante_registro',
+                            datos: { participante_id: response.participante[0].participante_id, registro_id: response.participante[0].registro_id_ultimo }
+                        }).then(function(res) {
+                            var array = [];
+                            for(let i = 0; i < res.length; i++){
+                                array.push(res[i].evento_id);
+                            }
+
+                            eventos.select({
+                                name: 'evento_id[]',
+                                url: '/obtener_todos_eventos',
+                                placeholder: "Seleccione ...",
+
+                            }).then(function() {
+                                $("#evento_id")[0].selectize.setValue(array);
+                                $('#evento_id')[0].selectize.disable();
+                            });
+
+                        })
+                        return false;
+                    }
                     promise.then(function() {
                         if(response.eventos.length > 0) {
                             BASE_JS.sweet({
@@ -484,6 +551,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     })
                 }
 
+                if(array_url[array_url.length - 1] == "formulario_vuelos") {
+                    if(response.participante.length <= 0) {
+                        BASE_JS.sweet({
+                            text: '¡NO EXISTE EL CODIGO QR: '+codigo_qr+' ASIGNADO A UN PARTICIPANTE!'
+                        });
+                        return false;
+                    }
+                }
+
 
 
 
@@ -493,19 +569,52 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    document.getElementsByName("participante_nrodoc")[0].addEventListener("keydown", function(e) {
-        // e.preventDefault();
+
+    $(document).on("keydown", "input[name=codigo_qr]", function(e) {
+
+
         if(e.key == "Enter") {
+
+            validar_duplicacidad();
+            e.preventDefault();
+        }
+
+    })
+
+    $(document).on("click", "#consultar-codigo", function(e) {
+        var required = true;
+        required = required && participantes.required("codigo_qr");
+        if(required) {
+
             validar_duplicacidad();
         }
 
     })
 
-    document.getElementsByName("participante_nrodoc")[0].addEventListener("change", function(e) {
+    // $(document).on("change", "input[name=codigo_qr]", function(e) {
+
+    //     validar_duplicacidad();
+
+    // })
+
+    $(document).on("keydown", "input[name=participante_nrodoc]", function(e) {
+        // e.preventDefault();
+        if(e.key == "Enter") {
+            validar_duplicacidad();
+            e.preventDefault();
+        }
+
+    })
+
+    $(document).on("change", "input[name=participante_nrodoc]", function(e) {
         // e.preventDefault();
         validar_duplicacidad();
 
     })
+
+
+
+
 
     function obtener_eventos_segun_participante_registro(datos) {
         eventos.ajax({

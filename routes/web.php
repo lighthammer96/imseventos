@@ -43,6 +43,11 @@ Route::get('/formulario', function () {
     return view('formulario');
 });
 
+Route::get('/formulario_vuelos', function () {
+    // return "hola";
+    return view('formulario_vuelos');
+});
+
 //PRINCIPAL
 Route::get('principal/index', [PrincipalController::class, "index"]);
 Route::post('principal/obtener_departamentos', [PrincipalController::class, "obtener_departamentos"]);
@@ -125,6 +130,7 @@ Route::post('participantes/obtener_participantes', [ParticipantesController::cla
 Route::post('participantes/select_init', [ParticipantesController::class, "select_init"]);
 Route::post('participantes/enviar_qr', [ParticipantesController::class, "enviar_qr"]);
 Route::post('participantes/validar_participante_segun_nrodoc', [ParticipantesController::class, "validar_participante_segun_nrodoc"]);
+Route::post('participantes/obtener_participante_segun_codigoqr', [ParticipantesController::class, "obtener_participante_segun_codigoqr"]);
 Route::post('participantes/obtener_participante_segun_evento', [ParticipantesController::class, "obtener_participante_segun_evento"]);
 Route::get('participantes/procesar', [ParticipantesController::class, "procesar"]);
 // Route::get('participantes/generar_pdf_qr', [ParticipantesController::class, "generar_pdf_qr"]);

@@ -49,7 +49,7 @@ class ParticipantesController extends Controller
         $botones[3] = '<button disabled="disabled" style="margin-right: 5px;" class="btn btn-default btn-sm" id="ver-eventos"><img style="width: 19px; height: 20px;" src="'.URL::asset('images/iconos/lupa.png').'"><br>Ver Eventos</button>';
         $data["botones"] = $botones;
 
-        $data["scripts"] = $this->cargar_js(["participantes.js?version=080620232052"]);
+        $data["scripts"] = $this->cargar_js(["participantes.js?version=160620231226"]);
         return parent::init($view, $data);
 
 
@@ -153,6 +153,8 @@ class ParticipantesController extends Controller
             DB::beginTransaction();
             $data = $request->all();
 
+            $data["evento_id"] = (isset($data["evento_id"])) ? $data["evento_id"] : array();
+
             if(isset($data["usuario_user"])) {
                 session(['usuario_user' => $data["usuario_user"]]);
             }
@@ -193,7 +195,10 @@ class ParticipantesController extends Controller
                 // $this->base_model->insertar($this->preparar_datos("eventos.detalle_eventos", $_POST));
             }else{
                 //
-                DB::table("eventos.detalle_eventos")->where("participante_id", $data["participante_id"])->where("registro_id", $_POST["registro_id_ultimo"])->whereNotIn('evento_id', $data["evento_id"])->delete();
+                if(count($data["evento_id"]) > 0) {
+                    DB::table("eventos.detalle_eventos")->where("participante_id", $data["participante_id"])->where("registro_id", $_POST["registro_id_ultimo"])->whereNotIn('evento_id', $data["evento_id"])->delete();
+                }
+
                 // print_r($this->preparar_datos("eventos.participantes", $_POST)); exit;
                 $result = $this->base_model->modificar($this->preparar_datos("eventos.participantes", $_POST));
                 $this->base_model->modificar($this->preparar_datos("eventos.registros", $_POST));
@@ -368,6 +373,18 @@ class ParticipantesController extends Controller
 
             $result["eventos"] = DB::select($sql_eventos);
         }
+
+
+        // die($sql);
+        echo json_encode($result);
+    }
+
+    public function obtener_participante_segun_codigoqr(Request $request) {
+        $data = $request->all();
+        $sql = "SELECT * FROM eventos.participantes AS p
+        INNER JOIN eventos.detalle_eventos AS de ON(p.participante_id=de.participante_id AND p.registro_id_ultimo=de.registro_id)
+        WHERE de_codigoqr='{$data["codigo_qr"]}' AND p.estado='A'";
+        $result["participante"] = DB::select($sql);
 
 
         // die($sql);
