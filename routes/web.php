@@ -192,3 +192,4 @@ Route::post('importar/procesos', [ImportarController::class, "procesos"]);
  Route::get('api/obtener_comentarios', [ApiController::class, "obtener_comentarios"]);
  Route::get('api/obtener_votacion_activa', [ApiController::class, "obtener_votacion_activa"]);
  Route::get('api/obtener_url', [ApiController::class, "obtener_url"]);
+ Route::get('api/obtener_eventos', [ApiController::class, "obtener_eventos"]);

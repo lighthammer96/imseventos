@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BaseModel;
+use App\Models\EventosModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,12 +13,14 @@ class ApiController extends Controller
 {
     //
     private $base_model;
+    private $eventos_model;
 
 
     public function __construct() {
         parent:: __construct();
 
         $this->base_model = new BaseModel();
+        $this->eventos_model = new EventosModel();
     }
 
     public function login(Request $request) {
@@ -38,8 +41,8 @@ class ApiController extends Controller
             $data["response"] = "nouser";
         }
 
-        if(count($result) > 0 && $result[0]->perfil_id != 1 && $result[0]->perfil_id != 2) {
-            $data["response"] = "nouser";
+        if(count($result) > 0 && $result[0]->perfil_id != 1 && $result[0]->perfil_id != 3) {
+            $data["response"] = "noperfil";
         }
 
         // print_r($result); exit;
@@ -284,5 +287,9 @@ class ApiController extends Controller
     }
 
 
+    public function guardar_asistencia() {
+        $eventos = $this->eventos_model->obtener_eventos();
+        echo json_encode($result);
+    }
 
 }
