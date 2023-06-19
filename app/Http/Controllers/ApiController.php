@@ -292,4 +292,14 @@ class ApiController extends Controller
         echo json_encode($eventos);
     }
 
+    public function obtener_tipos_programa() {
+        $array = array();
+
+        array_push($array, array("id" => 1, "descripcion", "Alimentos"));
+        array_push($array, array("id" => 2, "descripcion", "Coliseo"));
+
+        echo json_encode($array);
+
+    }
+
 }
