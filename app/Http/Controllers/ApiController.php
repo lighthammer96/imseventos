@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BaseModel;
 use App\Models\EventosModel;
+use App\Models\ProgramasModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,7 @@ class ApiController extends Controller
 
         $this->base_model = new BaseModel();
         $this->eventos_model = new EventosModel();
+        $this->programas_model = new ProgramasModel();
     }
 
     public function login(Request $request) {

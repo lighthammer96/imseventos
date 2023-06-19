@@ -52,12 +52,7 @@ class ProgramasModel extends Model
     }
 
     public function obtener_programas($evento_id, $tp_id) {
-        if(empty($evento_id)) {
-            $evento_id = 0;
-        }
-        if(empty($tp_id)) {
-            $tp_id = 0;
-        }
+      
         $sql = "SELECT * FROM eventos.programas WHERE estado='A' AND evento_id={$evento_id} AND tp_id={$tp_id}";
         $result = DB::select($sql);
         return $result;
