@@ -295,8 +295,8 @@ class ApiController extends Controller
     public function obtener_tipos_programa() {
         $array = array();
 
-        array_push($array, array("id" => 1, "descripcion", "Alimentos"));
-        array_push($array, array("id" => 2, "descripcion", "Coliseo"));
+        array_push($array, array("id" => 1, "descripcion" => "Alimentos"));
+        array_push($array, array("id" => 2, "descripcion" => "Coliseo"));
 
         echo json_encode($array);
 
