@@ -14,6 +14,7 @@ class ApiController extends Controller
     //
     private $base_model;
     private $eventos_model;
+    private $programas_model;
 
 
     public function __construct() {
@@ -299,6 +300,14 @@ class ApiController extends Controller
         array_push($array, array("id" => 2, "descripcion" => "Coliseo"));
 
         echo json_encode($array);
+
+    }
+
+    public function obtener_programas(Request $request) {
+        $data = $request->all();
+
+        $result = $this->programas_model->obtener_programas($data["evento_id"], $data["tp_id"]);
+        echo json_encode($result);
 
     }
 

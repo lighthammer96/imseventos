@@ -134,5 +134,13 @@ class ProgramasController extends Controller
         echo json_encode($data);
     }
 
+    public function obtener_programas(Request $request) {
+        $data = $request->all();
+
+        $result = $this->programas_model->obtener_programas($data["evento_id"], $data["tp_id"]);
+        echo json_encode($result);
+
+    }
+
 
 }

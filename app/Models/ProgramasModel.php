@@ -51,5 +51,11 @@ class ProgramasModel extends Model
         return $result;
     }
 
+    public function obtener_programas($evento_id, $tp_id) {
+        $sql = "SELECT * FROM eventos.programas WHERE estado='A' AND evento_id={$evento_id} AND tp_id={$tp_id}";
+        $result = DB::select($sql);
+        return $result;
+    }
+
 
 }
