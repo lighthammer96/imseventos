@@ -177,5 +177,10 @@ class ApiController extends Controller
 
     }
 
-
+    public function obtener_asistencia_participante(Request $request) {
+        $data = $request->all();
+        $sql = "SELECT * FROM eventos.participantes WHERE participante_id={$data["participante_id"]}";
+        $result = DB::select($sql);
+        echo json_encode($result);
+    }
 }
