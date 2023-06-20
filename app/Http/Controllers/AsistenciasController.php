@@ -62,15 +62,16 @@ class AsistenciasController extends Controller
             DB::beginTransaction();
 
             $data = $request->all();
-            // echo json_encode($data); exit;
+            echo json_encode($data); exit;
             $result = array();
 
 
             $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
+            // echo json_encode($participante); exit;
             if(count($participante) <= 0) {
                 throw new Exception("participante_no_registrado");
             }
-            echo json_encode($participante); exit;
+
             $data["participante_id"] = $participante[0]->participante_id;
 
             $asistencia = $this->asistencias_model->validar_asistencia($data);
