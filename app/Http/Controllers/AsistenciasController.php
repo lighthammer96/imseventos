@@ -62,7 +62,7 @@ class AsistenciasController extends Controller
             DB::beginTransaction();
 
             $data = $request->all();
-            echo json_encode($data); exit;
+            // echo json_encode($data); exit;
             $result = array();
 
 
