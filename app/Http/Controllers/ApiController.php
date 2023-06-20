@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AsistenciasModel;
 use App\Models\BaseModel;
 use App\Models\EventosModel;
 use App\Models\ProgramasModel;
@@ -17,7 +16,6 @@ class ApiController extends Controller
     private $base_model;
     private $eventos_model;
     private $programas_model;
-    private $asistencias_model;
 
 
     public function __construct() {
@@ -26,7 +24,6 @@ class ApiController extends Controller
         $this->base_model = new BaseModel();
         $this->eventos_model = new EventosModel();
         $this->programas_model = new ProgramasModel();
-        $this->asistencias_model = new AsistenciasModel();
     }
 
     public function login(Request $request) {
@@ -315,10 +312,6 @@ class ApiController extends Controller
         echo json_encode($result);
 
     }
-
-    public function guardar_asistencias(Request $request) {
-        $result = $this->asistencias_model->guardar_asistencias($request);
-        echo json_encode($result);
-    }
+    
 
 }
