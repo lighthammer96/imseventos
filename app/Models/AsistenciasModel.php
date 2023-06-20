@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tabla;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class AsistenciasModel extends Model
@@ -74,6 +75,57 @@ class AsistenciasModel extends Model
         ORDER BY permiso_id DESC";
         $result = DB::select($sql);
         return $result;
+    }
+
+    public function guardar_asistencias($request) {
+        try {
+            DB::beginTransaction();
+
+            $data = $request->all();
+            $result = array();
+
+
+            $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
+            if(count($participante) <= 0) {
+                throw new Exception("participante_no_registrado");
+            }
+
+            $data["participante_id"] = $participante[0]->participante_id;
+
+            $asistencia = $this->asistencias_model->validar_asistencia($data);
+            // print_r($asistencia); exit;
+
+            if(count($asistencia) > 0) {
+                throw new Exception("asistencia_registrada");
+            }
+
+
+            $result = $this->base_model->insertar($this->preparar_datos("eventos.asistencias", $data));
+
+            $result["participante"] = $participante[0];
+            $result["delegado"] = $participante[0]->registro_delegado;
+
+            DB::commit();
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+            $response["status"] = "ei";
+            $response["participante"] = (isset($participante[0])) ? $participante[0] : array();
+            $response["code"] = "";
+            $response["msg"] = $e->getMessage();
+            $response["permisos"] = $this->asistencias_model->obtener_permisos($data);
+            if($e->getMessage() == "asistencia_registrada") {
+                $response["code"] = "asistencia_registrada";
+                $response["msg"] = "La asistencia ya ha sido registrada";
+            }
+
+            if($e->getMessage() == "participante_no_registrado") {
+                $response["code"] = "participante_no_registrado";
+                $response["msg"] = "El participante no esta registrado en el Sistema";
+            }
+
+            return $response;
+        }
     }
 
 }

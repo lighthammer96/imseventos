@@ -58,54 +58,9 @@ class AsistenciasController extends Controller
 
 
     public function guardar_asistencias(Request $request) {
-        try {
-            DB::beginTransaction();
 
-            $data = $request->all();
-            $result = array();
-
-
-            $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
-            if(count($participante) <= 0) {
-                throw new Exception("participante_no_registrado");
-            }
-
-            $data["participante_id"] = $participante[0]->participante_id;
-
-            $asistencia = $this->asistencias_model->validar_asistencia($data);
-            // print_r($asistencia); exit;
-
-            if(count($asistencia) > 0) {
-                throw new Exception("asistencia_registrada");
-            }
-
-
-            $result = $this->base_model->insertar($this->preparar_datos("eventos.asistencias", $data));
-
-            $result["participante"] = $participante[0];
-            $result["delegado"] = $participante[0]->registro_delegado;
-
-            DB::commit();
-            echo json_encode($result);
-        } catch (Exception $e) {
-            DB::rollBack();
-            $response["status"] = "ei";
-            $response["participante"] = (isset($participante[0])) ? $participante[0] : array();
-            $response["code"] = "";
-            $response["msg"] = $e->getMessage();
-            $response["permisos"] = $this->asistencias_model->obtener_permisos($data);
-            if($e->getMessage() == "asistencia_registrada") {
-                $response["code"] = "asistencia_registrada";
-                $response["msg"] = "La asistencia ya ha sido registrada";
-            }
-
-            if($e->getMessage() == "participante_no_registrado") {
-                $response["code"] = "participante_no_registrado";
-                $response["msg"] = "El participante no esta registrado en el Sistema";
-            }
-
-            echo json_encode($response);
-        }
+        $result = $this->asistencias_model->guardar_asistencias($request);
+        echo json_encode($result);
     }
 
     public function guardar_permisos(Request $request) {
