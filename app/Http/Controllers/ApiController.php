@@ -179,7 +179,9 @@ class ApiController extends Controller
 
     public function obtener_asistencia_participante(Request $request) {
         $data = $request->all();
-        $sql = "SELECT * FROM eventos.participantes WHERE participante_id={$data["participante_id"]}";
+        $sql = "SELECT * FROM eventos.participantes AS p
+        INNER JOIN eventos.registros AS r ON(p.participante_id=r.participante_id AND p.registro_id_ultimo=r.registro_id)
+        WHERE p.participante_id={$data["participante_id"]}";
         $result = DB::select($sql);
         echo json_encode($result);
     }
