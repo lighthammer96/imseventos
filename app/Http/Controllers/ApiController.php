@@ -317,7 +317,8 @@ class ApiController extends Controller
     }
 
     public function guardar_asistencias(Request $request) {
-        $this->asistencias_model->guardar_asistencias($request);
+        $result = $this->asistencias_model->guardar_asistencias($request);
+        echo json_encode($result);
     }
 
 }
