@@ -121,14 +121,17 @@ class AsistenciasController extends Controller
 
                 if($data["tipo"] == "S" && $permisos[0]->tipo == "S") {
                     throw new Exception("El ultimo registro es una Salida");
+                    return false;
                 }
 
                 if($data["tipo"] == "E" && $permisos[0]->tipo == "E") {
                     throw new Exception("El ultimo registro es una Entrada");
+                    return false;
                 }
             } else {
                 if($data["tipo"] == "E" ) {
                     throw new Exception("Debe registrar primero una Salida");
+                    return false;
                 }
             }
 
