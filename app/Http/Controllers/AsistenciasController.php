@@ -70,7 +70,7 @@ class AsistenciasController extends Controller
             if(count($participante) <= 0) {
                 throw new Exception("participante_no_registrado");
             }
-
+            echo json_encode($participante); exit;
             $data["participante_id"] = $participante[0]->participante_id;
 
             $asistencia = $this->asistencias_model->validar_asistencia($data);
