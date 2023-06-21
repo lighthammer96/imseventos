@@ -69,6 +69,7 @@ class LlegadasController extends Controller
             $participante = $this->llegadas_model->validar_codigo_qr_segun_evento($data);
             if(count($participante) <= 0) {
                 throw new Exception("participante_no_registrado");
+                return false;
             }
 
             $data["participante_id"] = $participante[0]->participante_id;
@@ -78,6 +79,7 @@ class LlegadasController extends Controller
 
             if(count($asistencia) > 0) {
                 throw new Exception("asistencia_registrada");
+                return false;
             }
 
 
