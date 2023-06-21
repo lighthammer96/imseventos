@@ -64,6 +64,9 @@ class AsistenciasController extends Controller
             $data = $request->all();
             // echo json_encode($data); exit;
             $result = array();
+            if(isset($data["usuario_user"]) && !empty($data["usuario_user"])) {
+                session(['usuario_user' => $data["usuario_user"]]);
+            }
 
 
             $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
@@ -116,6 +119,9 @@ class AsistenciasController extends Controller
         try {
             $data = $request->all();
             $permisos = $this->asistencias_model->obtener_permisos($data);
+            if(isset($data["usuario_user"]) && !empty($data["usuario_user"])) {
+                session(['usuario_user' => $data["usuario_user"]]);
+            }
 
             if(count($permisos) > 0) {
 

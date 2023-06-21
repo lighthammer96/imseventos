@@ -63,7 +63,9 @@ class LlegadasController extends Controller
 
             $data = $request->all();
             $result = array();
-            
+            if(isset($data["usuario_user"]) && !empty($data["usuario_user"])) {
+                session(['usuario_user' => $data["usuario_user"]]);
+            }
 
 
             $participante = $this->llegadas_model->validar_codigo_qr_segun_evento($data);
