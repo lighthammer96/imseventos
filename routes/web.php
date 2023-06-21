@@ -204,3 +204,5 @@ Route::post('importar/procesos', [ImportarController::class, "procesos"]);
  Route::get('api/guardar_asistencias', [AsistenciasController::class, "guardar_asistencias"]);
  Route::get('api/obtener_asistencia_participante', [ApiController::class, "obtener_asistencia_participante"]);
  Route::get('api/guardar_permisos', [AsistenciasController::class, "guardar_permisos"]);
+ Route::get('api/guardar_llegadas', [LlegadasController::class, "guardar_llegadas"]);
+ Route::get('api/obtener_llegada_participante', [ApiController::class, "obtener_llegada_participante"]);

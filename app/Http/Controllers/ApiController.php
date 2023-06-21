@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BaseModel;
 use App\Models\EventosModel;
+use App\Models\LlegadasModel;
 use App\Models\ProgramasModel;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class ApiController extends Controller
     private $base_model;
     private $eventos_model;
     private $programas_model;
+    private $llegadas_model;
 
 
     public function __construct() {
@@ -24,6 +26,7 @@ class ApiController extends Controller
         $this->base_model = new BaseModel();
         $this->eventos_model = new EventosModel();
         $this->programas_model = new ProgramasModel();
+        $this->llegadas_model = new LlegadasModel();
     }
 
     public function login(Request $request) {
@@ -179,10 +182,21 @@ class ApiController extends Controller
 
     public function obtener_asistencia_participante(Request $request) {
         $data = $request->all();
-        $sql = "SELECT * FROM eventos.participantes AS p
+        $sql = "SELECT p.*, r.*,
+        COALESCE(r.registro_aerolinea, '-.-') AS registro_aerolinea,
+        COALESCE(r.registro_nrovuelo, '-.-') AS registro_nrovuelo,
+        COALESCE(to_char(r.registro_fecha_llegada, 'DD/MM/YYYY'), '-.-') AS registro_fecha_llegada,
+        COALESCE(r.registro_destino_llegada, '-.-') AS registro_destino_llegada
+        FROM eventos.participantes AS p
         INNER JOIN eventos.registros AS r ON(p.participante_id=r.participante_id AND p.registro_id_ultimo=r.registro_id)
         WHERE p.participante_id={$data["participante_id"]}";
         $result = DB::select($sql);
         echo json_encode($result);
+    }
+
+    public function obtener_llegada_participante(Request $request) {
+        $data = $request->all();
+        $llegada = $this->llegadas_model->validar_asistencia($data);
+        echo json_encode($llegada);
     }
 }
