@@ -54,6 +54,8 @@ class ApiController extends Controller
         // print_r($result); exit;
         if(count($result) > 0 && isset($result[0]->usuario_pass) && Hash::check($pass, $result[0]->usuario_pass)) {
             $data["response"] = "ok";
+        } else {
+            $data["response"] = "nopass";
         }
 
         $data["datos"] = $result;
