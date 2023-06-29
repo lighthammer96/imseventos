@@ -182,8 +182,10 @@ class ParticipantesController extends Controller
             if ($request->input("participante_id") == '' && $data["operacion"] == "NUEVO") {
 
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
+                print_r($result);
                 $_POST["participante_id"] = $result["id"];
                 $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
+                print_r($r);
                 $_POST["registro_id"] = $r["id"];
 
                 $data_update = array();
@@ -205,7 +207,7 @@ class ParticipantesController extends Controller
                 $_POST["registro_id"] = $_POST["registro_id_ultimo"];
             }
 
-            print_r($result); exit;
+
 
 
             if (!file_exists(base_path("public/QR/"))) {
