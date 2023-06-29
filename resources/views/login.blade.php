@@ -74,6 +74,11 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <center><a href="{{ URL::asset('apk/imseventosapp.apk') }}" download="imseventosapp.apk"><strong>Descargar APK.</strong></a></center>
+                    </div>
+                </div>
 
             </form>
 

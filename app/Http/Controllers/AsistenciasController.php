@@ -62,21 +62,28 @@ class AsistenciasController extends Controller
             DB::beginTransaction();
 
             $data = $request->all();
+            // echo json_encode($data); exit;
             $result = array();
+            if(isset($data["usuario_user"]) && !empty($data["usuario_user"])) {
+                session(['usuario_user' => $data["usuario_user"]]);
+            }
 
 
             $participante = $this->asistencias_model->validar_codigo_qr_segun_evento($data);
+            // echo json_encode($participante); exit;
             if(count($participante) <= 0) {
                 throw new Exception("participante_no_registrado");
+                return false;
             }
 
             $data["participante_id"] = $participante[0]->participante_id;
 
             $asistencia = $this->asistencias_model->validar_asistencia($data);
-            // print_r($asistencia); exit;
+            // echo json_encode($asistencia); exit;
 
             if(count($asistencia) > 0) {
                 throw new Exception("asistencia_registrada");
+                return false;
             }
 
 
@@ -112,19 +119,25 @@ class AsistenciasController extends Controller
         try {
             $data = $request->all();
             $permisos = $this->asistencias_model->obtener_permisos($data);
+            if(isset($data["usuario_user"]) && !empty($data["usuario_user"])) {
+                session(['usuario_user' => $data["usuario_user"]]);
+            }
 
             if(count($permisos) > 0) {
 
                 if($data["tipo"] == "S" && $permisos[0]->tipo == "S") {
                     throw new Exception("El ultimo registro es una Salida");
+                    return false;
                 }
 
                 if($data["tipo"] == "E" && $permisos[0]->tipo == "E") {
                     throw new Exception("El ultimo registro es una Entrada");
+                    return false;
                 }
             } else {
                 if($data["tipo"] == "E" ) {
                     throw new Exception("Debe registrar primero una Salida");
+                    return false;
                 }
             }
 
