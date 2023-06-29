@@ -205,7 +205,7 @@ class ParticipantesController extends Controller
                 $_POST["registro_id"] = $_POST["registro_id_ultimo"];
             }
 
-            // print_r($result);
+            print_r($result); exit;
 
 
             if (!file_exists(base_path("public/QR/"))) {
