@@ -165,6 +165,9 @@ class ParticipantesController extends Controller
             $_POST["participante_fecha_nacimiento"] = (isset($_REQUEST["participante_fecha_nacimiento"])) ? $this->FormatoFecha($_REQUEST["participante_fecha_nacimiento"], "server") : "";
             $_POST["usuario_id"] = session("usuario_id");
 
+            $_POST["registro_fecha_llegada"] = (isset($_REQUEST["registro_fecha_llegada"])) ? $this->FormatoFecha($_REQUEST["registro_fecha_llegada"], "server") : "";
+            $_POST["registro_fecha_retorno"] = (isset($_REQUEST["registro_fecha_retorno"])) ? $this->FormatoFecha($_REQUEST["registro_fecha_retorno"], "server") : "";
+
 
             if(!empty($data["idtipodoc"]) && $data["idtipodoc"] != "0" && !empty($data["participante_nrodoc"]) && !empty($data["idpais"])) {
                 $sql_validacion = "SELECT * FROM eventos.participantes WHERE idtipodoc={$data["idtipodoc"]} AND participante_nrodoc='{$data["participante_nrodoc"]}' AND idpais={$data["idpais"]}";
@@ -182,10 +185,10 @@ class ParticipantesController extends Controller
             if ($request->input("participante_id") == '' && $data["operacion"] == "NUEVO") {
 
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
-                print_r($result);
+                // print_r($result);
                 $_POST["participante_id"] = $result["id"];
                 $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
-                print_r($r);
+                // print_r($r);
                 $_POST["registro_id"] = $r["id"];
 
                 $data_update = array();
