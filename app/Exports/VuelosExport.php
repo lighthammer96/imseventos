@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 
 class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, WithEvents
 {
-
+    // referencia para dar estilos:https://laracasts.com/discuss/channels/laravel/formatting-exported-excel-file
     public function registerEvents(): array
     {
         return [
