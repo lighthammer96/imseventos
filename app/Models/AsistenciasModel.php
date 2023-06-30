@@ -18,7 +18,6 @@ class AsistenciasModel extends Model
 
     }
 
-
     public function tabla() {
         $tabla = new Tabla();
         $tabla->asignarID("tabla-asistencias");

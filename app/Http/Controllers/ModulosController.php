@@ -40,7 +40,7 @@ class ModulosController extends Controller
         $botones[3] = '<button disabled="disabled" tecla_rapida="F7" style="margin-right: 5px;" class="btn btn-default btn-sm" id="eliminar-modulo"><img style="width: 19px; height: 20px;" src="'.URL::asset('images/iconos/delete.png').'"><br>'.traducir("traductor.eliminar").' [F7]</button>';
         $data["botones"] = $botones;
 
-        $data["scripts"] = $this->cargar_js(["idiomas.js","modulos.js"]);
+        $data["scripts"] = $this->cargar_js(["modulos.js"]);
         // $data["acciones"] = $this->getAcciones($modulo_id);
         return parent::init($view, $data);
     }
@@ -64,7 +64,7 @@ class ModulosController extends Controller
             $result = $this->base_model->modificar($this->preparar_datos("seguridad.modulos", $_POST));
         }
 
-      
+
         echo json_encode($result);
 
 
