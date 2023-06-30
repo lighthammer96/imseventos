@@ -14,10 +14,15 @@ class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, With
     // referencia para dar estilos:https://laracasts.com/discuss/channels/laravel/formatting-exported-excel-file
     public function registerEvents(): array
     {
+        global $count;
+        $regs = $this->collection();
+        $count = count($regs) + 1;
+        // print_r($count); exit;
         return [
             AfterSheet::class => function(AfterSheet $event)
             {
-                $event->getSheet()->getDelegate()->getStyle('A1:Q11')->applyFromArray(
+                global $count;
+                $event->getSheet()->getDelegate()->getStyle('A1:Q'.$count)->applyFromArray(
                     array(
                         'borders' => array(
                             'allBorders' => array(
