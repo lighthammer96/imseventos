@@ -66,26 +66,26 @@ class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, With
     public function collection()
     {
 
-        $sql = "SELECT p.participante_nombres, p.participante_apellidos, td.descripcion AS tipo_documento,
-        p.participante_nrodoc, pp.descripcion AS pais, r.registro_celular, r.registro_correo, r.registro_apoderado,
-        r.registro_iglesia,
-        CASE WHEN r.registro_delegado='S' THEN 'SI' ELSE 'NO' END AS registro_delegado,
-        r.registro_aerolinea, r.registro_nrovuelo, to_char(r.registro_fecha_llegada, 'DD/MM/YYYY') AS registro_fecha_llegada,
-        r.registro_hora_llegada, to_char(r.registro_fecha_retorno, 'DD/MM/YYYY') AS registro_fecha_retorno, r.registro_hora_retorno,
-        r.registro_destino_llegada
-        FROM eventos.participantes AS p
-        LEFT JOIN public.pais AS pp ON(p.idpais=pp.idpais)
-        LEFT JOIN public.tipodoc AS td ON(td.idtipodoc=p.idtipodoc)
-        INNER JOIN eventos.registros AS r ON(p.participante_id=r.participante_id AND p.registro_id_ultimo=r.registro_id)
-        INNER JOIN eventos.detalle_eventos AS de ON(de.participante_id=r.participante_id AND de.registro_id=r.registro_id)
-        WHERE de.evento_id={$_REQUEST["evento_id"]}";
+        // $sql = "SELECT p.participante_nombres, p.participante_apellidos, td.descripcion AS tipo_documento,
+        // p.participante_nrodoc, pp.descripcion AS pais, r.registro_celular, r.registro_correo, r.registro_apoderado,
+        // r.registro_iglesia,
+        // CASE WHEN r.registro_delegado='S' THEN 'SI' ELSE 'NO' END AS registro_delegado,
+        // r.registro_aerolinea, r.registro_nrovuelo, to_char(r.registro_fecha_llegada, 'DD/MM/YYYY') AS registro_fecha_llegada,
+        // r.registro_hora_llegada, to_char(r.registro_fecha_retorno, 'DD/MM/YYYY') AS registro_fecha_retorno, r.registro_hora_retorno,
+        // r.registro_destino_llegada
+        // FROM eventos.participantes AS p
+        // LEFT JOIN public.pais AS pp ON(p.idpais=pp.idpais)
+        // LEFT JOIN public.tipodoc AS td ON(td.idtipodoc=p.idtipodoc)
+        // INNER JOIN eventos.registros AS r ON(p.participante_id=r.participante_id AND p.registro_id_ultimo=r.registro_id)
+        // INNER JOIN eventos.detalle_eventos AS de ON(de.participante_id=r.participante_id AND de.registro_id=r.registro_id)
+        // WHERE de.evento_id={$_REQUEST["evento_id"]}";
 
 
 
-        $vuelos = DB::select($sql);
+        // $vuelos = DB::select($sql);
 
         $vuelos = DB::table("eventos.participantes AS p")
-            ->select('p.participante_nombres', 'p.participante_apellidos', 'td.descripcion AS tipo_documento', 'p.participante_nrodoc', 'pp.descripcion AS pais', 'r.registro_celular', 'r.registro_correo', 'r.registro_apoderado', 'r.registro_iglesia', DB::raw("CASE WHEN r.registro_delegado='S' THEN 'SI' ELSE 'NO' END AS registro_delegado"), 'r.registro_aerolinea', 'r.registro_nrovuelo', DB::raw("to_char(r.registro_fecha_llegada, 'DD/MM/YYYY') AS registro_fecha_llegada"), 'r.registro_hora_llegada', DB::raw("to_char(r.registro_fecha_retorno, 'DD/MM/YYYY') AS registro_fecha_retorno"), 'r.registro_destino_llegada')
+            ->select('p.participante_nombres', 'p.participante_apellidos', 'td.descripcion AS tipo_documento', 'p.participante_nrodoc', 'pp.descripcion AS pais', 'r.registro_celular', 'r.registro_correo', 'r.registro_apoderado', 'r.registro_iglesia', DB::raw("CASE WHEN r.registro_delegado='S' THEN 'SI' ELSE 'NO' END AS registro_delegado"), 'r.registro_aerolinea', 'r.registro_nrovuelo', DB::raw("to_char(r.registro_fecha_llegada, 'DD/MM/YYYY') AS registro_fecha_llegada"), 'r.registro_hora_llegada', DB::raw("to_char(r.registro_fecha_retorno, 'DD/MM/YYYY') AS registro_fecha_retorno"), 'r.registro_hora_retorno', 'r.registro_destino_llegada')
             ->leftJoin('public.pais AS pp', 'p.idpais', '=', 'pp.idpais')
             ->leftJoin('public.tipodoc AS td', 'td.idtipodoc', '=', 'p.idtipodoc')
             ->join('eventos.registros AS r', function ($join) {
@@ -97,8 +97,8 @@ class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, With
                 $join->on('de.registro_id', '=', 'r.registro_id');
             })
 
-            ->where('de.evento_id', '=', $_REQUEST["evento_id"]);
-
+            ->where('de.evento_id', '=', $_REQUEST["evento_id"])
+            ->whereNotNull('r.registro_nrovuelo');
         $vuelos =  $vuelos->get();
 
         if (count($vuelos) <= 0) {
