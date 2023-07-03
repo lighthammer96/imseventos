@@ -11,6 +11,34 @@ document.addEventListener("DOMContentLoaded", function() {
         url: '/obtener_eventos',
         placeholder: "Seleccione ..."
     });
+    $("input[name=registro_fecha_llegada]").attr("data-inputmask", "'alias': 'dd/mm/yyyy'");
+
+    $("input[name=registro_fecha_llegada]").inputmask();
+    jQuery("input[name=registro_fecha_llegada]").datepicker({
+        format: "dd/mm/yyyy",
+        language: "es",
+        todayHighlight: true,
+        todayBtn: "linked",
+        autoclose: true,
+
+
+    });
+
+    $(document).on("click", "#calendar-registro_fecha_llegada", function (e) {
+        e.preventDefault();
+
+
+        if ($("input[name=registro_fecha_llegada]").hasClass("focus-datepicker")) {
+
+            $("input[name=registro_fecha_llegada]").blur();
+            $("input[name=registro_fecha_llegada]").removeClass("focus-datepicker");
+        } else {
+
+            $("input[name=registro_fecha_llegada]").focus();
+            $("input[name=fechanacimiento]").addClass("focus-datepicker");
+        }
+
+    });
 
 
     document.getElementById("exportar_excel").addEventListener("click", function(e) {

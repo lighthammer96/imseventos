@@ -16,6 +16,16 @@
 
                         </select>
                     </div>
+                    <div class="col-md-8 col-md-offset-1">
+                        <label class="control-label">Fecha de Llegada</label>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm entrada" name="registro_fecha_llegada" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask placeholder="" />
+                            <div class="input-group-addon"  id="calendar-registro_fecha_llegada" style="cursor: pointer;">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col-md-8 col-md-offset-1" style="margin-top: 15px;">
                         <center>

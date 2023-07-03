@@ -365,6 +365,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+    $(document).on("click", "#calendar-registro_fecha_llegada", function (e) {
+        e.preventDefault();
+
+
+        if ($("input[name=registro_fecha_llegada]").hasClass("focus-datepicker")) {
+
+            $("input[name=registro_fecha_llegada]").blur();
+            $("input[name=registro_fecha_llegada]").removeClass("focus-datepicker");
+        } else {
+
+            $("input[name=registro_fecha_llegada]").focus();
+            $("input[name=fechanacimiento]").addClass("focus-datepicker");
+        }
+
+    });
+
+
+    $(document).on("click", "#calendar-registro_fecha_retorno", function (e) {
+        e.preventDefault();
+
+
+        if ($("input[name=registro_fecha_retorno]").hasClass("focus-datepicker")) {
+
+            $("input[name=registro_fecha_retorno]").blur();
+            $("input[name=registro_fecha_retorno]").removeClass("focus-datepicker");
+        } else {
+
+            $("input[name=registro_fecha_retorno]").focus();
+            $("input[name=fechanacimiento]").addClass("focus-datepicker");
+        }
+
+    });
+
     // document.getElementById("descargar_pdf").addEventListener("click", function(e) {
     //     e.preventDefault();
     //     $("#formulario-participantes").attr("action", BaseUrl + "/participantes/generar_pdf_qr");
