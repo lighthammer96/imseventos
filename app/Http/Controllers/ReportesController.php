@@ -130,7 +130,7 @@ class ReportesController extends Controller
         //     exit;
         // }
         // echo '<script>window.close();</script>';
-        return Excel::download(new VuelosExport, 'reporte_vuelos.xlsx');
+        return Excel::download(new VuelosExport, 'reporte_vuelos_'.$this->FormatoFecha($_REQUEST["registro_fecha_llegada"], "server").'.xlsx');
 
     }
 
