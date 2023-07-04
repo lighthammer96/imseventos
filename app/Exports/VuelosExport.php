@@ -103,10 +103,12 @@ class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, With
             });
 
             if(isset($_REQUEST["registro_fecha_llegada"]) && !empty($_REQUEST["registro_fecha_llegada"])) {
-                $vuelos = $vuelos->where("r.registro_fecha_llegada", $_REQUEST["registro_fecha_llegada"]);
+                $vuelos = $vuelos->where("r.registro_fecha_llegada", $this->FormatoFecha($_REQUEST["registro_fecha_llegada"], "server"));
             }
 
+        //echo $vuelos->toSql(); exit;
         $vuelos =  $vuelos->get();
+
 
         if (count($vuelos) <= 0) {
             echo '<script>alert("No hay Datos!"); window.close();</script>';
@@ -114,5 +116,25 @@ class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, With
         }
 
         return $vuelos;
+    }
+
+    public function FormatoFecha($fecha, $formato) {
+        if ($fecha != null) {
+            if ($formato == "user") {
+                $date = explode("-", $fecha);
+                if (count($date) == 3) {
+                    return $date[2] . "/" . $date[1] . "/" . $date[0];
+                }
+            }
+
+            if ($formato == "server") {
+                $date = explode("/", $fecha);
+                if (count($date) == 3) {
+                    return $date[2] . "-" . $date[1] . "-" . $date[0];
+                }
+            }
+        }
+
+        return $fecha;
     }
 }
