@@ -97,11 +97,14 @@ class VuelosExport implements FromCollection, WithHeadings, ShouldAutoSize, With
                 $join->on('de.registro_id', '=', 'r.registro_id');
             })
 
-            ->where('de.evento_id', '=', $_REQUEST["evento_id"])->where("r.registro_fecha_llegada", $_REQUEST["registro_fecha_llegada"])
+            ->where('de.evento_id', '=', $_REQUEST["evento_id"])
             ->where(function ($query) {
                 $query->whereNotNull('r.registro_nrovuelo')->orWhereNotNull('r.registro_aerolinea');
             });
 
+            if(isset($_REQUEST["registro_fecha_llegada"]) && !empty($_REQUEST["registro_fecha_llegada"])) {
+                $vuelos = $vuelos->where("r.registro_fecha_llegada", $_REQUEST["registro_fecha_llegada"]);
+            }
 
         $vuelos =  $vuelos->get();
 
