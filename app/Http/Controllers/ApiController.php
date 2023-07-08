@@ -201,4 +201,17 @@ class ApiController extends Controller
         $llegada = $this->llegadas_model->validar_asistencia($data);
         echo json_encode($llegada);
     }
+
+    public function cerrar_sesion() {
+
+        $sa_id = $_REQUEST["sesion_id"];
+
+        $update = array();
+        $update["sa_id"] = $sa_id;
+        $update["estado"] = "I";
+        $result = $this->base_model->modificar($this->preparar_datos("asambleas.sesion_app", $update));
+
+
+        echo json_encode($result);
+    }
 }
