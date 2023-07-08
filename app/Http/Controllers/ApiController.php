@@ -45,16 +45,16 @@ class ApiController extends Controller
         $response["usuario"] = DB::select($sql_login);
 
         if(!isset($response["usuario"][0]->usuario_user)  || !isset($response["usuario"][0]->perfil_id)) {
-            $data["response"] = "nouser";
+            $response["response"] = "nouser";
         }
 
         if(count($response["usuario"]) > 0 && $response["usuario"][0]->perfil_id != 1 && $response["usuario"][0]->perfil_id != 3) {
-            $data["response"] = "noperfil";
+            $response["response"] = "noperfil";
         }
 
         // print_r($response["usuario"]); exit;
         if(count($response["usuario"]) > 0 && isset($response["usuario"][0]->usuario_pass) && Hash::check($pass, $response["usuario"][0]->usuario_pass)) {
-            $data["response"] = "ok";
+            $response["response"] = "ok";
              $sql_sesion = "SELECT * FROM eventos.sesion_app WHERE usuario_id={$response["usuario"][0]->usuario_id} AND estado='A'";
             $response["sesion"] = DB::select($sql_sesion);
             if(count($response["sesion"]) <= 0) {
@@ -69,11 +69,11 @@ class ApiController extends Controller
                 $response["sesion_id"] = $response["sesion"][0]->sa_id;
             }
         } else {
-            $data["response"] = "nopass";
+            $response["response"] = "nopass";
         }
 
-        $data["datos"] = $response;
-        echo json_encode($data);
+
+        echo json_encode($response);
         // print("hola");
     }
 
