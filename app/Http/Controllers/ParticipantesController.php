@@ -49,7 +49,7 @@ class ParticipantesController extends Controller
         $botones[3] = '<button disabled="disabled" style="margin-right: 5px;" class="btn btn-default btn-sm" id="ver-eventos"><img style="width: 19px; height: 20px;" src="'.URL::asset('images/iconos/lupa.png').'"><br>Ver Eventos</button>';
         $data["botones"] = $botones;
 
-        $data["scripts"] = $this->cargar_js(["participantes.js?version=160620231226"]);
+        $data["scripts"] = $this->cargar_js(["participantes.js?version=030720231208"]);
         return parent::init($view, $data);
 
 
@@ -165,6 +165,9 @@ class ParticipantesController extends Controller
             $_POST["participante_fecha_nacimiento"] = (isset($_REQUEST["participante_fecha_nacimiento"])) ? $this->FormatoFecha($_REQUEST["participante_fecha_nacimiento"], "server") : "";
             $_POST["usuario_id"] = session("usuario_id");
 
+            $_POST["registro_fecha_llegada"] = (isset($_REQUEST["registro_fecha_llegada"])) ? $this->FormatoFecha($_REQUEST["registro_fecha_llegada"], "server") : "";
+            $_POST["registro_fecha_retorno"] = (isset($_REQUEST["registro_fecha_retorno"])) ? $this->FormatoFecha($_REQUEST["registro_fecha_retorno"], "server") : "";
+
 
             if(!empty($data["idtipodoc"]) && $data["idtipodoc"] != "0" && !empty($data["participante_nrodoc"]) && !empty($data["idpais"])) {
                 $sql_validacion = "SELECT * FROM eventos.participantes WHERE idtipodoc={$data["idtipodoc"]} AND participante_nrodoc='{$data["participante_nrodoc"]}' AND idpais={$data["idpais"]}";
@@ -182,8 +185,10 @@ class ParticipantesController extends Controller
             if ($request->input("participante_id") == '' && $data["operacion"] == "NUEVO") {
 
                 $result = $this->base_model->insertar($this->preparar_datos("eventos.participantes", $_POST));
+                // print_r($result);
                 $_POST["participante_id"] = $result["id"];
                 $r = $this->base_model->insertar($this->preparar_datos("eventos.registros", $_POST));
+                // print_r($r);
                 $_POST["registro_id"] = $r["id"];
 
                 $data_update = array();
@@ -205,7 +210,7 @@ class ParticipantesController extends Controller
                 $_POST["registro_id"] = $_POST["registro_id_ultimo"];
             }
 
-            // print_r($result);
+
 
 
             if (!file_exists(base_path("public/QR/"))) {

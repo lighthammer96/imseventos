@@ -411,7 +411,8 @@
         // url donde estan varias versiones: https://cdn.socket.io/
 
         // const socket = io("ws://192.168.1.52:3000", { transports : ['websocket'] });
-        const socket = io("https://imsapp-socket-server.herokuapp.com/", { transports : ['websocket'] });
+        // const socket = io("https://imsapp-socket-server.herokuapp.com/", { transports : ['websocket'] });
+        const socket = io("https://server-production-3360.up.railway.app/", { transports : ['websocket'] });
 
 
         // socket.on("connect", () => {

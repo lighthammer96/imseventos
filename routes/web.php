@@ -14,6 +14,7 @@ use App\Http\Controllers\ParticipantesController;
 use App\Http\Controllers\ImportarController;
 use App\Http\Controllers\LlegadasController;
 use App\Http\Controllers\ProgramasController;
+use App\Http\Controllers\ReportesController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -183,6 +184,12 @@ Route::post('importar/importar_datos', [ImportarController::class, "importar_dat
 Route::post('importar/procesos', [ImportarController::class, "procesos"]);
 
 
+/*************
+ * MODULO REPORTES*
+ *************/
+
+ Route::get('reportes/vuelos', [ReportesController::class, "vuelos"]);
+ Route::get('reportes/exportar_excel_reporte_vuelos', [ReportesController::class, "exportar_excel_reporte_vuelos"]);
 
 
  // API APP
