@@ -63,8 +63,8 @@ class ApiController extends Controller
                 $data["sa_fecha"] = date("Y-m-d");
                 $data["sa_hora"] = date("H:i:s");
                 $data["estado"] = 'A';
-                $response["usuario"] = $this->base_model->insertar($this->preparar_datos("eventos.sesion_app", $data));
-                $response["sesion_id"] = $response["usuario"]["id"];
+                $result = $this->base_model->insertar($this->preparar_datos("eventos.sesion_app", $data));
+                $response["sesion_id"] = $result["id"];
             } else {
                 $response["sesion_id"] = $response["sesion"][0]->sa_id;
             }
