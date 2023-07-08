@@ -32,6 +32,7 @@ class ApiController extends Controller
     public function login(Request $request) {
         $user = strtolower($request->input('user'));
         $pass = $request->input('pass');
+        $response = array();
         // $clave = Hash::make('1235');
         // echo $clave; exit;
         // echo Hash::check("1235", $clave);
@@ -41,24 +42,37 @@ class ApiController extends Controller
 
         WHERE lower(u.usuario_user)='{$user}'";
         // die($sql_login);
-        $result = DB::select($sql_login);
+        $response["usuario"] = DB::select($sql_login);
 
-        if(!isset($result[0]->usuario_user)  || !isset($result[0]->perfil_id)) {
+        if(!isset($response["usuario"][0]->usuario_user)  || !isset($response["usuario"][0]->perfil_id)) {
             $data["response"] = "nouser";
         }
 
-        if(count($result) > 0 && $result[0]->perfil_id != 1 && $result[0]->perfil_id != 3) {
+        if(count($response["usuario"]) > 0 && $response["usuario"][0]->perfil_id != 1 && $response["usuario"][0]->perfil_id != 3) {
             $data["response"] = "noperfil";
         }
 
-        // print_r($result); exit;
-        if(count($result) > 0 && isset($result[0]->usuario_pass) && Hash::check($pass, $result[0]->usuario_pass)) {
+        // print_r($response["usuario"]); exit;
+        if(count($response["usuario"]) > 0 && isset($response["usuario"][0]->usuario_pass) && Hash::check($pass, $response["usuario"][0]->usuario_pass)) {
             $data["response"] = "ok";
+             $sql_sesion = "SELECT * FROM asambleas.sesion_app WHERE idmiembro={$response["miembro"][0]->idmiembro} AND estado='A'";
+            $response["sesion"] = DB::select($sql_sesion);
+            if(count($response["sesion"]) <= 0) {
+                $data = array();
+                $data["idmiembro"] = $response["miembro"][0]->idmiembro;
+                $data["sa_fecha"] = date("Y-m-d");
+                $data["sa_hora"] = date("H:i:s");
+                $data["estado"] = 'A';
+                $response["usuario"] = $this->base_model->insertar($this->preparar_datos("asambleas.sesion_app", $data));
+                $response["sesion_id"] = $response["usuario"]["id"];
+            } else {
+                $response["sesion_id"] = $response["sesion"][0]->sa_id;
+            }
         } else {
             $data["response"] = "nopass";
         }
 
-        $data["datos"] = $result;
+        $data["datos"] = $response;
         echo json_encode($data);
         // print("hola");
     }
@@ -209,7 +223,7 @@ class ApiController extends Controller
         $update = array();
         $update["sa_id"] = $sa_id;
         $update["estado"] = "I";
-        $result = $this->base_model->modificar($this->preparar_datos("asambleas.sesion_app", $update));
+        $result = $this->base_model->modificar($this->preparar_datos("eventos.sesion_app", $update));
 
 
         echo json_encode($result);
