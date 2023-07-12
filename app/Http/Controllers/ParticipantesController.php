@@ -223,6 +223,7 @@ class ParticipantesController extends Controller
                 // validacion si ya existe el evento en la tabla detalle_eventos
                 $evento = $this->participantes_model->obtener_participante_segun_evento($result["id"], $data["evento_id"][$i], $_POST["registro_id"]);
                 if(count($evento) > 0) {
+                    $this->generar_pdf_qr($result["id"], $data["evento_id"][$i], $_POST["registro_id"]);
                     continue;
                 }
 
