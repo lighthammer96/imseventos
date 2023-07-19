@@ -49,6 +49,11 @@ Route::get('/formulario_vuelos', function () {
     return view('formulario_vuelos');
 });
 
+Route::get('/soporte', function () {
+    // return "hola";
+    return view('soporte');
+});
+
 //PRINCIPAL
 Route::get('principal/index', [PrincipalController::class, "index"]);
 Route::post('principal/obtener_departamentos', [PrincipalController::class, "obtener_departamentos"]);
