@@ -191,6 +191,9 @@ class ApiController extends Controller
     public function obtener_programas(Request $request) {
         $data = $request->all();
 
+        $data["evento_id"] = (!empty($data["evento_id"])) ? $data["evento_id"] : '-1';
+        $data["tp_id"] = (!empty($data["tp_id"])) ? $data["tp_id"] : '-1';
+
         $result = $this->programas_model->obtener_programas($data["evento_id"], $data["tp_id"]);
         echo json_encode($result);
 
