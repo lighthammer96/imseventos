@@ -145,4 +145,13 @@ class PrincipalModel extends Model
         return $result;
     }
 
+    public function obtener_tipos_programa_todos() {
+        $array = array("id" => "-1", "descripcion" => "Todos");
+        $array = (object) $array;
+        $sql = "SELECT tp_id AS id, tp_descripcion AS descripcion FROM eventos.tipos_programa WHERE estado='A'";
+        $result = DB::select($sql);
+        array_push($result, $array);
+        return $result;
+    }
+
 }

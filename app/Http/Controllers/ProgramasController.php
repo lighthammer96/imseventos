@@ -142,5 +142,12 @@ class ProgramasController extends Controller
 
     }
 
+    public function obtener_programas_select(Request $request) {
+
+        $result = $this->programas_model->obtener_programas_select();
+        echo json_encode($result);
+
+    }
+
 
 }

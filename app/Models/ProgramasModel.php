@@ -52,9 +52,34 @@ class ProgramasModel extends Model
     }
 
     public function obtener_programas($evento_id, $tp_id) {
-      
+
         $sql = "SELECT * FROM eventos.programas WHERE estado='A' AND evento_id={$evento_id} AND tp_id={$tp_id}";
         $result = DB::select($sql);
+        return $result;
+    }
+
+    public function obtener_programas_select() {
+        $array = array("id" => "-1", "descripcion" => "Todos");
+        $array = (object) $array;
+
+        $evento_id = "-1";
+        $tp_id = "-1";
+        $where_evento = "";
+        $where_tipo_evento = "";
+        if(isset($_REQUEST["evento_id"]) && !empty($_REQUEST["evento_id"]) && $_REQUEST["evento_id"] != "-1") {
+            $evento_id = $_REQUEST["evento_id"];
+            $where_evento = " AND evento_id={$evento_id}";
+        }
+
+        if(isset($_REQUEST["tp_id"]) && !empty($_REQUEST["tp_id"]) && $_REQUEST["tp_id"] != "-1") {
+            $tp_id = $_REQUEST["tp_id"];
+            $where_tipo_evento = " AND tp_id={$tp_id}";
+        }
+
+        $sql = "SELECT programa_id AS id, programa_descripcion AS descripcion FROM eventos.programas WHERE estado='A' {$where_evento} {$where_tipo_evento}";
+
+        $result = DB::select($sql);
+        array_push($result, $array);
         return $result;
     }
 

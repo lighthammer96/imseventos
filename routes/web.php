@@ -160,6 +160,7 @@ Route::post('programas/get_programas', [ProgramasController::class, "get_program
 Route::post('programas/eliminar_programas', [ProgramasController::class, "eliminar_programas"]);
 Route::post('programas/obtener_programas_segun_tipo', [ProgramasController::class, "obtener_programas_segun_tipo"]);
 Route::post('programas/select_init', [ProgramasController::class, "select_init"]);
+Route::post('programas/obtener_programas_select', [ProgramasController::class, "obtener_programas_select"]);
 
 // ASISTENCIAS
 Route::get('asistencias/index', [AsistenciasController::class, "index"]);
@@ -195,7 +196,15 @@ Route::post('importar/procesos', [ImportarController::class, "procesos"]);
 
  Route::get('reportes/vuelos', [ReportesController::class, "vuelos"]);
  Route::get('reportes/exportar_excel_reporte_vuelos', [ReportesController::class, "exportar_excel_reporte_vuelos"]);
-
+ Route::get('reportes/participantes_evento', [ReportesController::class, "participantes_evento"]);
+ Route::get('reportes/exportar_excel_participantes_evento', [ReportesController::class, "exportar_excel_participantes_evento"]);
+ Route::get('reportes/asistencias_evento', [ReportesController::class, "asistencias_evento"]);
+ Route::get('reportes/exportar_excel_asistencias_evento', [ReportesController::class, "exportar_excel_asistencias_evento"]);
+ Route::get('reportes/asistencias_programa', [ReportesController::class, "asistencias_programa"]);
+ Route::get('reportes/exportar_excel_asistencias_programa', [ReportesController::class, "exportar_excel_asistencias_programa"]);
+ Route::get('reportes/visitantes_recepcionados', [ReportesController::class, "visitantes_recepcionados"]);
+ Route::get('reportes/exportar_excel_visitantes_recepcionados', [ReportesController::class, "exportar_excel_visitantes_recepcionados"]);
+ Route::post('reportes/select_init', [ReportesController::class, "select_init"]);
 
  // API APP
 

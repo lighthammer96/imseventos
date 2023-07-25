@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AsistenciasEventoExport;
+use App\Exports\AsistenciasProgramaExport;
+use App\Exports\ParticipantesEventoExport;
+use App\Exports\VisitantesRecepcionadosExport;
 use App\Exports\VuelosExport;
+use App\Models\EventosModel;
 use App\Models\PrincipalModel;
-
-
+use App\Models\ProgramasModel;
 // use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,12 +22,16 @@ class ReportesController extends Controller
 
     private $reportes_model;
     private $principal_model;
+    private $programas_model;
+    private $eventos_model;
 
 
     public function __construct() {
         parent:: __construct();
 
         $this->principal_model = new PrincipalModel();
+        $this->programas_model = new ProgramasModel();
+        $this->eventos_model = new EventosModel();
 
         // $this->base_model = new BaseModel();
     }
@@ -130,22 +138,97 @@ class ReportesController extends Controller
         //     exit;
         // }
         // echo '<script>window.close();</script>';
-        return Excel::download(new VuelosExport, 'reporte_vuelos_'.$this->FormatoFecha($_REQUEST["registro_fecha_llegada"], "server").'.xlsx');
+        return Excel::download(new VuelosExport, 'reporte_vuelos_'.$this->FormatoFecha($_REQUEST["registro_fecha_llegada
+        "], "server").'.xlsx');
+
+    }
+
+    public function participantes_evento() {
+        $view = "reportes.participantes_evento";
+        // echo traducir("traductor.titulo_general_asociados");
+        // exit;
+        $data["title"] = 'Reporte de Participantes por Evento';
+        $data["subtitle"] = "";
+
+        $data["scripts"] = $this->cargar_js(["participantes_evento.js"]);
+        return parent::init($view, $data);
+    }
+
+    public function exportar_excel_participantes_evento(Request $request) {
+        $data = $request->all();
+        // print_r($data);
+
+        return Excel::download(new ParticipantesEventoExport, 'reporte_participantes_evento_'.str_replace(" ", "_", $data["evento_descripcion"]).'.xlsx');
+
+    }
+
+    public function asistencias_evento() {
+        $view = "reportes.asistencias_evento";
+        // echo traducir("traductor.titulo_general_asociados");
+        // exit;
+        $data["title"] = 'Reporte de Asistencias por Evento';
+        $data["subtitle"] = "";
+
+        $data["scripts"] = $this->cargar_js(["asistencias_evento.js"]);
+        return parent::init($view, $data);
+    }
+
+    public function exportar_excel_asistencias_evento(Request $request) {
+        $data = $request->all();
+        // print_r($data);
+
+        return Excel::download(new AsistenciasEventoExport, 'reporte_asistencias_evento_'.str_replace(" ", "_", $data["evento_descripcion"]).'.xlsx');
+
+    }
+
+
+    public function asistencias_programa() {
+        $view = "reportes.asistencias_programa";
+        // echo traducir("traductor.titulo_general_asociados");
+        // exit;
+        $data["title"] = 'Reporte de Asistencias por Programa';
+        $data["subtitle"] = "";
+
+        $data["scripts"] = $this->cargar_js(["asistencias_programa.js"]);
+        return parent::init($view, $data);
+    }
+
+    public function exportar_excel_asistencias_programa(Request $request) {
+        $data = $request->all();
+        // print_r($data);
+
+        return Excel::download(new AsistenciasProgramaExport, 'reporte_asistencias_programa_'.str_replace(" ", "_", $data["programa_descripcion"]).'.xlsx');
+
+    }
+
+
+    public function visitantes_recepcionados() {
+        $view = "reportes.visitantes_recepcionados";
+        // echo traducir("traductor.titulo_general_asociados");
+        // exit;
+        $data["title"] = 'Reporte de Visitantes Recepcionados';
+        $data["subtitle"] = "";
+
+        $data["scripts"] = $this->cargar_js(["visitantes_recepcionados.js"]);
+        return parent::init($view, $data);
+    }
+
+    public function exportar_excel_visitantes_recepcionados(Request $request) {
+        $data = $request->all();
+        // print_r($data);
+
+        return Excel::download(new VisitantesRecepcionadosExport, 'reporte_visitantes_recepcionados_'.str_replace(" ", "_", $data["evento_descripcion"]).'.xlsx');
 
     }
 
 
 
 
-
-
-
-
-
     public function select_init(Request $request) {
 
-        $data["idcondicioneclesiastica"] = $this->principal_model->obtener_condicion_eclesiastica();
-        $data["idcondicioneclesiastica_all"] = $this->principal_model->obtener_condicion_eclesiastica_all();
+        $data["evento_id"] = $this->eventos_model->obtener_eventos();
+        $data["tp_id"] = $this->principal_model->obtener_tipos_programa_todos();
+        $data["programa_id"] = $this->programas_model->obtener_programas_select();
 
         echo json_encode($data);
     }
