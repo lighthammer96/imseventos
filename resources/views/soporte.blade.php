@@ -59,8 +59,7 @@
                 posteriormente presionar el botón "Escanear QR" y escanear la imagen del QR adjuntado,<br>
                 finalmente Guardar.</p>
 
-                <p>Luego en la opción Configuración, en input radio podrá seleccionar el idioma de su preferencia.<br>
-                y Por ultimo la opción cerrar sesión, eliminara la sesión y volverá al formulario de login.</p>
+                <p>Por ultimo la opción cerrar sesión, eliminará la sesión y volverá al formulario de login.</p>
 
                 <center>
                     <h3>Imagen del QR a Escanear</h3>
